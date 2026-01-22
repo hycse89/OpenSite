@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSSLAB MultiVerse Campus</title>
+
+    <!-- Favicon 설정 -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png">    
+    
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            margin: 0; /* 이게 가장 중요합니다 */            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-top: 0; 
+            margin: 0 0 20px 0; /* 위쪽 margin 제거 */
+            text-align: center;
+        }
+
+        /* 이미지 스타일 */
+        .campus-map {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 링크 목록 스타일 */
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .link-button {
+            display: block;
+            padding: 8px 20px;
+            font-size: 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 350px;         
+            text-align: center;
+            margin: 0 auto;
+            /* font-weight: bold; 텍스트를 굵게 */            
+        }
+
+        .link-button2 {
+            display: block;
+            padding: 8px 20px;
+            font-size: 15px;
+            background-color: #e38a04;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 350px;         
+            text-align: center;
+            margin: 0 auto;
+            /* font-weight: bold; 텍스트를 굵게 */            
+        } 
+
+        .link-button3 {
+            display: block;
+            padding: 8px 20px;
+            font-size: 15px;
+            background-color: #033162;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 350px;         
+            text-align: center;
+            margin: 0 auto;
+            /* font-weight: bold; 텍스트를 굵게 */            
+        }         
+
+        .link-button4 {
+            display: block;
+            padding: 8px 20px;
+            font-size: 15px;
+            background-color: #013e0b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 350px;         
+            text-align: center;
+            margin: 0 auto;
+            /* font-weight: bold; 텍스트를 굵게 */            
+        }     
+        
+        .link-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- 상단 타이틀 -->
+    <h1>AX2 Research Platform</h1>
+    <!-- 캠퍼스 지도 이미지 -->
+    <img src="campus.png" usemap="#campusmap" alt="Campus Map" class="campus-map" width=380, height=380>
+    
+    <!-- 이미지 맵 -->
+    <map name="campusmap">
+        <!-- PSSLAB Web Home Page -->
+        <area shape="rect" coords="100,100,200,200" href="http://www.psslab.co.kr" alt="Building 1" title="PSSLAB Web Home Page">
+        <!-- PSSLAB Digital Lab -->
+        <area shape="rect" coords="50,50,150,150" href="https://github.com/hycse89" alt="Building 2" title="Digital Lab. Workplace">
+        <!-- PSSLAB Project Dashboard -->
+        <area shape="rect" coords="0,200,100,300" href="https://github.com/users/hycse89/projects/1" alt="Building 3" title="PSSLAB Project Workplace">
+        <!--PSSLAB AX&DX System Design Workplace -->
+        <area shape="rect" coords="150,0,250,50" href="http://localhost:8001/ax_design/index.html" alt="Building 4" title="AX&DX Design Workplace">
+        <!--PSSLAB AX&DX Presentation Workplace -->
+        <area shape="rect" coords="300,100,400,200" href="http://localhost:8001/ax_presentation/index.html" alt="Building 4" title="AX&DX Presentation Workplace">        
+        <!--PSSLAB AX&DX Development Workplace -->
+        <area shape="rect" coords="100,300,200,400" href="http://localhost:8001/ax_dev/index.html" alt="Building 5" title="AX&DX Development Workplace">        
+    </map>
+
+    <!-- 하단 링크 목록 -->
+    <div class="link-container">      
+        <a href="http://www.psslab.co.kr" class="link-button3">PSSLAB Digital Site</a>       
+        <a href="https://github.com/hycse89" class="link-button3">PSSLAB Digital Laboratory</a>
+        
+        <a href="http://localhost:8001" class="link-button4">AX² Research System</a>    
+        
+        <a href="http://localhost:8002" class="link-button">AX² AI-Ware</a>        
+        <a href="http://localhost:8003" class="link-button">AX² Agent System</a>
+        <a href="http://localhost:8004" class="link-button">AX² Lake System</a>
+        
+        <a href="ax2/ax2_homepage.html" class="link-button2">Introduction to AX²</a>                                
+        <a href="ax2/solution_book/index.html" class="link-button2">AX² System Solution Book</a>
+    </div>
+
+</body>
+</html>
+
