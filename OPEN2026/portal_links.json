@@ -1,0 +1,21 @@
+[
+    { "href": "http://localhost:9001/DevSystem/ax_research_server/public/main.html", "text": "AX² Research Catalog Site", "class": "color-1 w-3 h-1" },
+    { "href": "http://localhost:9001/DevSystem/ax_sales_server/ax2_v2_concept/ax2_v2_homepage.html", "text": "AX² System V2 Concept", "class": "color-2 w-1 h-1" },
+    { "href": "http://localhost:9001/DevSystem/ax_sales_server/ax2_sales/", "text": "AX² System V2 Deliverables", "class": "color-2 w-1 h-1" },
+    { "href": "http://localhost:9001/DevSystem/ax_sales_server/ax2_technology/", "text": "AX² System V2 Technology Research", "class": "color-1 h-1" },
+    { "href": "http://localhost:9001/DevSystem/ax_sales_server/ax2_solution/", "text": "AX² System V2 Solution Research", "class": "color-1 h-1" },
+    { "href": "http://localhost:9001/TestSystem/ax_book/LLM_%EA%B8%B0%EC%B4%88/llm_v1_presentation/index.html", "text": "진화적 관점의 LLM 핵심개념", "class": "color-1 h-1" },
+    { "href": "http://localhost:9001/TestSystem/ax_paper/ax_anti_attention/Presentation_Summary/presentation_summary_v1.html", "text": "논문 소개 HTML", "class": "color-6 h-2" },
+    { "href": "http://localhost:9001/TestSystem/ax_paper/ax_anti_attention/ax2_v3_anti_attention_paper_v3.md", "text": "논문 전체 MD", "class": "color-6 h-2" },
+    { "href": "http://localhost:9001/TestSystem/ax_paper/ax_anti_attention/Presentation_Summary/presentation_summary_v1.md", "text": "논문 요약 MD", "class": "color-6 h-2" },
+    { "href": "http://localhost:9001/TestSystem/ax_paper/ax_anti_attention/Presentation_Summary/Output_sample.txt", "text": "논문 실험 TXT", "class": "color-6 h-2" },
+    { "href": "http://localhost:9001/TestSystem/ax_doc/ax_leader/ax_leader_summary_v1.md", "text": "AX LEADER 요약 - MD", "class": "color-2 h-1" },
+    { "href": "http://localhost:9001/TestSystem/ax_doc/ax_leader/ax_leader_training_v1.html", "text": "AX LEADER 학습방법 - HTML", "class": "color-2 h-1" },
+    { "href": "http://localhost:9001/TestSystem/ax_doc/ax_leader/ax_leader_v1_gemini_html/ax_leader_final_scenario.html", "text": "AX LEADER - HTML", "class": "color-2 h-1" },
+    { "href": "http://localhost:9001/TestSystem/ax_book/Micro_MOT/micro_mot_v3.md", "text": "미시적 기술경영(Micro MOT) - MD", "class": "color-2 h-1" },
+    { "href": "http://localhost:9001/TestSystem/ax_book/Micro_MOT/micro_mot_v3_html/index.html", "text": "미시적 기술경영(Micro MOT) - HTML", "class": "color-2 h-1" },
+    { "href": "https://github.com/hycse89", "text": "Research Repository - GitHub", "class": "color-4 w-1 h-1" },
+    { "href": "https://google.com", "text": "Application Integration Platform - Google", "class": "color-4 w-1 h-1" },
+    { "href": "http://www.psslab.co.kr", "text": "PSSLAB Digital Homepage", "class": "color-4 w-1 h-1" },
+    { "href": "http://localhost:9001/DevSystem/ax_research_server/public/ax_presentation/utils/svg_viewer.html?file=../doc/pt_yphong.svg", "text": "Dr. Yong-pyo Hong", "class": "color-4 w-1 h-1" }
+]
