@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro MOT v2 - 나를 경영하는 기술</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1a252f);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+        }
+
+        /* Intro Section */
+        .prologue-card {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            color: var(--primary-color);
+        }
+
+        .quote-box {
+            font-style: italic;
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        /* Table of Contents */
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .toc-item {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .toc-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .part-num {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .toc-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="hero-title">Micro MOT v3</h1>
+    <p class="hero-subtitle">나를 경영하는 기술, 나를 증강하는 시스템</p>
+</header>
+
+<div class="container">
+    <article class="prologue-card">
+        <h2>프롤로그: 기술에 대한 인식, 왕의 귀환</h2>
+        <p>
+            우리는 기술을 거대 기업이나 연구소만이 소유할 수 있는 전유물로 여겨왔습니다. 
+            그 거대한 시스템 앞에서 개인은 기술의 주인이 아니라 <strong>'수동적인 소비자'</strong>로 전락했습니다.
+        </p>
+
+        <div class="quote-box">
+            "인간은 호모 파베르(Homo Faber, 도구의 인간)이다. <br>
+            기술을 부리는 것은 인간적 실존의 증명이다." - 앙리 베르그송
+        </div>
+
+        <p>
+            이 책은 'Micro MOT(Management Of Technology)'를 통해 기술경영의 주체를 기업에서 개인으로 전환하고자 합니다. 
+            AI라는 거대한 파도 앞에서 부품이 될 것인가, 아니면 기술을 올라탄 지휘자가 될 것인가? 
+            그 해답을 이 시스템 구축 가이드에서 제시합니다.
+        </p>
+    </article>
+
+    <h2 style="margin-top: 60px;">시스템 구축 로드맵</h2>
+    <div class="toc-grid">
+        <a href="part1.html" class="toc-item">
+            <span class="part-num">PART I</span>
+            <span class="toc-title">각성: CTO로서의 개인</span>
+        </a>
+        <a href="part2.html" class="toc-item">
+            <span class="part-num">PART II</span>
+            <span class="toc-title">구조: 가치 창출 엔진</span>
+        </a>
+        <a href="part3.html" class="toc-item">
+            <span class="part-num">PART III</span>
+            <span class="toc-title">역량: 생존 스펙트럼</span>
+        </a>
+        <a href="part4.html" class="toc-item">
+            <span class="part-num">PART IV</span>
+            <span class="toc-title">혁신: 지식 R&D 프로토콜</span>
+        </a>
+        <a href="part5.html" class="toc-item">
+            <span class="part-num">PART V</span>
+            <span class="toc-title">시스템: AX Architecture</span>
+        </a>
+        <a href="epilogue.html" class="toc-item">
+            <span class="part-num">EPILOGUE</span>
+            <span class="toc-title">기술을 넘어선 자유</span>
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; Micro MOT v2. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

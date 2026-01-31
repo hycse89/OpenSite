@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AX² V3 Mediator/Moderator Model – 발표용 6페이지</title>
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --card:#121a2a;
+      --ink:#e9eefc;
+      --muted:#b8c3e6;
+      --line:#26324d;
+      --accent:#6aa6ff;
+      --accent2:#7af0c6;
+      --warn:#ffcf6a;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, "Apple SD Gothic Neo", sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, #132040 0%, var(--bg) 60%);
+      color:var(--ink);
+      line-height:1.35;
+    }
+    .deck{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 80px;
+      display: grid;
+      gap: 28px;
+    }
+    .slide{
+      background: linear-gradient(180deg, rgba(18,26,42,0.95), rgba(12,17,28,0.95));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 26px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .slide:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(600px 200px at 15% 0%, rgba(106,166,255,0.15), transparent 60%),
+                  radial-gradient(500px 220px at 85% 10%, rgba(122,240,198,0.12), transparent 55%);
+      pointer-events:none;
+    }
+    .header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      position:relative;
+      z-index:1;
+    }
+    .badge{
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      white-space: nowrap;
+    }
+    h1,h2,h3{margin:0;}
+    h2{
+      font-size: 22px;
+      font-weight: 750;
+      margin-bottom: 6px;
+    }
+    .subtitle{
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+      max-width: 74ch;
+    }
+    .content{
+      position:relative;
+      z-index:1;
+      margin-top: 18px;
+      display:grid;
+      gap: 14px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 980px){
+      .grid-2,.grid-3{grid-template-columns: 1fr;}
+    }
+    .card{
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 14px;
+    }
+    .card h3{
+      font-size: 14px;
+      font-weight: 750;
+      color: var(--ink);
+      margin-bottom: 8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(106,166,255,0.12);
+      flex: 0 0 auto;
+    }
+    .dot.green{background: var(--accent2); box-shadow: 0 0 0 4px rgba(122,240,198,0.12);}
+    .dot.warn{background: var(--warn); box-shadow: 0 0 0 4px rgba(255,207,106,0.14);}
+    p{margin:0; color: var(--ink);}
+    ul{margin: 8px 0 0 18px; color: var(--ink);}
+    li{margin: 6px 0;}
+    .muted{color: var(--muted);}
+    .kpi{
+      display:flex; flex-direction:column; gap:8px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(106,166,255,0.06);
+    }
+    .kpi .label{font-size: 12px; color: var(--muted); letter-spacing:.02em;}
+    .kpi .value{font-size: 18px; font-weight: 800;}
+    .quote{
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px;
+      background: rgba(106,166,255,0.05);
+      border-radius: 10px;
+      color: var(--ink);
+    }
+    .formula{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.22);
+      overflow-x:auto;
+      white-space: pre;
+    }
+    table{
+      width:100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+    }
+    th,td{
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      vertical-align: top;
+    }
+    th{
+      text-align:left;
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-weight: 750;
+    }
+    tr:last-child td{border-bottom: none;}
+    .footer{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      position:relative;
+      z-index:1;
+      gap:12px;
+      flex-wrap: wrap;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+    .pill b{color: var(--ink);}
+    .sep{height:1px; background: var(--line); margin: 6px 0;}
+    .small{font-size: 12px; color: var(--muted);}
+    .em{color: var(--accent2); font-weight: 750;}
+  </style>
+</head>
+
+<body>
+  <main class="deck">
+
+    <!-- PAGE 1 -->
+    <section class="slide" id="page-1">
+      <div class="header">
+        <div>
+          <h2>페이지 ① — AX² System과 연구 맥락</h2>
+          <div class="subtitle">
+            본 문서는 ‘단일 알고리즘 논문’이 아니라, <span class="em">AX² System</span>이라는 실험 체계에서 나온
+            수백 개 실험 중 “창의적 연결” 패턴을 정리한 <b>기술 보고서</b>입니다.
+          </div>
+        </div>
+        <div class="badge">Context / Positioning</div>
+      </div>
+
+      <div class="content grid-2">
+        <div class="card">
+          <h3><span class="dot"></span>AX² System이란 무엇인가</h3>
+          <p>
+            AX²(System: AI Experience &amp; Transformation)은 AI를 단순 도구가 아니라
+            <b>사고·표현·문제 해결·연구 과정 전반에 참여하는 파트너</b>로 두고,
+            삶과 일, 연구 활동을 대상으로 다양한 실험을 축적하는 체계입니다.
+          </p>
+          <ul>
+            <li>실험 단위: 글쓰기, 기획, 분석, 생성, 검증, 재구성 등</li>
+            <li>관찰 대상: 표현력, 통찰 생성, 사고 구조 변화, 재현 가능한 패턴</li>
+            <li>산출물: 보고서/화이트페이퍼/프로토타입/내부 모듈 설계</li>
+          </ul>
+          <div class="sep"></div>
+          <div class="quote">
+            핵심 관찰: <b>LLM은 상식적 연결은 강하지만, 사람에게 인상 깊은 ‘원격 연결’은 약하다.</b>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot green"></span>LLM 보완 모듈로서의 위치</h3>
+          <p class="muted">
+            이 연구는 LLM을 대체하려는 시도가 아니라, LLM의 구조적 한계를 보완하는 “보조 모델” 중 하나입니다.
+          </p>
+          <div class="content" style="gap:10px;margin-top:10px;">
+            <div class="kpi">
+              <div class="label">Information Model</div>
+              <div class="value">정확한 정보 제시</div>
+              <div class="small">팩트 중심, 불확실성 최소화</div>
+            </div>
+            <div class="kpi" style="background: rgba(122,240,198,0.06);">
+              <div class="label">Mathematics Model</div>
+              <div class="value">수학/논리 기반 추론</div>
+              <div class="small">정확한 연산, 검증 가능한 논리</div>
+            </div>
+            <div class="kpi" style="background: rgba(255,207,106,0.06);">
+              <div class="label">Reverse Attention Model (본 문서)</div>
+              <div class="value">창의적 연결·표현력·통찰 강화</div>
+              <div class="small">멀리 떨어진 개념을 ‘중간 개념’으로 재연결</div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <span class="pill"><b>요지</b> 실험 → 패턴 관찰 → 수식화(최소) → 응용 설계</span>
+            <span class="pill"><b>형태</b> 보고서 중심, 논문화는 옵션</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="slide" id="page-2">
+      <div class="header">
+        <div>
+          <h2>페이지 ② — 현재 AI의 한계: 왜 ‘닮은 것’만 잘 연결하는가</h2>
+          <div class="subtitle">
+            트랜스포머/LLM은 기본적으로 <b>유사성(Similarity)</b>에 기반해 연결을 강화합니다.
+            그래서 “무난하고 상식적”인 문장은 강하지만, “의외의 통찰”은 약해집니다.
+          </div>
+        </div>
+        <div class="badge">Problem / Motivation</div>
+      </div>
+
+      <div class="content grid-2">
+        <div class="card">
+          <h3><span class="dot"></span>현재 방식의 직관</h3>
+          <p>
+            지금의 모델은 대체로 다음 질문에 최적화되어 있습니다.
+          </p>
+          <div class="quote" style="margin-top:10px;">
+            “A와 B는 얼마나 닮았는가?”
+          </div>
+          <p style="margin-top:10px;">
+            결과적으로 연결 기준이 <b>가까운 개념</b>에 치우치며, 다음과 같은 문장 성향이 나타납니다.
+          </p>
+          <ul>
+            <li><b>장점</b>: 안정적, 상식적, 오류(겉보기) 적음</li>
+            <li><b>단점</b>: 예측 가능, 평범함, 표현의 ‘도약’이 약함</li>
+          </ul>
+
+          <div class="sep"></div>
+          <div class="formula">기본 관점(직관적 표현)
+Connection Strength ∝ Sim(A, B)</div>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot warn"></span>사람에게 ‘인상 깊은 연결’은 반대 방향</h3>
+          <p>
+            사람의 통찰/창의성은 보통 <b>멀리 떨어진 개념</b>이 연결될 때 강해집니다.
+            (광고 카피, 문서의 비유, 스토리텔링, 새로운 관점 제시 등)
+          </p>
+          <div class="quote" style="margin-top:10px;border-left-color:var(--accent2);background:rgba(122,240,198,0.06);">
+            “A와 B는 닮지 않지만, 둘을 동시에 설명해주는 제3의 개념이 있는가?”
+          </div>
+
+          <div class="grid-3" style="margin-top:12px;">
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot green"></span>문서</h3>
+              <p class="small">짧은 문장으로 강한 전달(압축)</p>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot green"></span>카피</h3>
+              <p class="small">의외성 + 설득력(기억에 남음)</p>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot green"></span>아이디어</h3>
+              <p class="small">새 관점/새 결합(통찰)</p>
+            </div>
+          </div>
+
+          <div class="footer">
+            <span class="pill"><b>핵심</b> “유사성 중심”만으로는 통찰 생성이 제한됨</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section class="slide" id="page-3">
+      <div class="header">
+        <div>
+          <h2>페이지 ③ — 인간의 통찰 구조와 Mediator(C)</h2>
+          <div class="subtitle">
+            인간은 A–B를 직접 연결하기보다, <b>A와 B를 동시에 설명하는 ‘중간 개념(C)’</b>를 찾아
+            간접적으로 연결합니다. 이 중간 개념을 본 문서에서는 <b>Mediator</b>로 정의합니다.
+          </div>
+        </div>
+        <div class="badge">Concept / Intuition</div>
+      </div>
+
+      <div class="content grid-2">
+        <div class="card">
+          <h3><span class="dot"></span>가장 쉬운 예시</h3>
+          <p>
+            <b>A=디지털</b>과 <b>B=생명</b>은 직접 유사성이 낮습니다.
+            하지만 <b>C=인공지능</b>은 디지털과도 연결되고 생명과도 연결됩니다.
+          </p>
+          <div class="quote" style="margin-top:10px;">
+            A와 B는 멀지만, C가 있으면 “설명이 가능해지고 연결이 생긴다”.
+          </div>
+          <ul>
+            <li><b>LLM 관점</b>: “A와 B가 안 닮았으니 관계 없음”</li>
+            <li><b>통찰 관점</b>: “둘 다를 설명하는 C가 있나?”</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot green"></span>대표 사례(직관용)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:22%;">A</th>
+                <th style="width:22%;">B</th>
+                <th style="width:26%;">중간 개념 C</th>
+                <th>의미(예)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>디지털</td>
+                <td>생명</td>
+                <td>인공지능</td>
+                <td>기술적 통찰</td>
+              </tr>
+              <tr>
+                <td>나노</td>
+                <td>우주</td>
+                <td>프랙탈</td>
+                <td>구조적 도약</td>
+              </tr>
+              <tr>
+                <td>얼음</td>
+                <td>불꽃</td>
+                <td>상태변화</td>
+                <td>과학적 이해</td>
+              </tr>
+              <tr>
+                <td>침묵</td>
+                <td>웅변</td>
+                <td>여백</td>
+                <td>예술적 통찰</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="footer">
+            <span class="pill"><b>Mediator(C)</b> = A와 B를 동시에 설명하는 다리(징검다리)</span>
+            <span class="pill"><b>목표</b> C를 체계적으로 찾는 계산 규칙 정의</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="slide" id="page-4">
+      <div class="header">
+        <div>
+          <h2>페이지 ④ — 핵심 공식: Wormhole Value Index (WVI)</h2>
+          <div class="subtitle">
+            Mediator(C) 기반 연결이 “비유”가 아니라 “계산 가능한 구조”임을 보이기 위해,
+            연결 가치를 <b>WVI</b>로 정의합니다.
+          </div>
+        </div>
+        <div class="badge">Formula / Mechanics</div>
+      </div>
+
+      <div class="content grid-2">
+        <div class="card">
+          <h3><span class="dot"></span>공식</h3>
+          <div class="formula">WVI(A, B | C) = ( Sim(A, C) × Sim(C, B) ) / ( Sim(A, B) + ε )
+
+- Sim(X,Y): 코사인 유사도(“닮음 점수”)
+- C: 중간 개념(Mediator)
+- ε: 0으로 나누는 것을 방지하는 작은 값</div>
+
+          <h3 style="margin-top:14px;"><span class="dot green"></span>해석(중학생 수준 설명)</h3>
+          <ul>
+            <li><b>A–C</b>가 가깝고 <b>C–B</b>가 가깝다면: C는 “다리 역할”을 한다.</li>
+            <li><b>A–B</b>가 멀수록(닮지 않을수록): “의외성/도약” 가능성이 커진다.</li>
+            <li>따라서 <b>가까운 다리 × 의외성</b>을 동시에 만족할 때 점수가 커진다.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot warn"></span>기존 방식과의 대비</h3>
+          <p>
+            기존 어텐션은 기본적으로 <b>닮을수록 강화</b>입니다. 반면 WVI는
+            <b>“멀리 있는 두 개념을, 강한 중간 개념으로 연결할 때”</b> 가치를 높게 봅니다.
+          </p>
+
+          <div class="grid-2" style="margin-top:12px;grid-template-columns:1fr 1fr;">
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot"></span>기존 직관</h3>
+              <div class="formula">Weight ∝ Sim(A, B)</div>
+              <p class="small">가까운 것 위주 → 무난/상식적</p>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot green"></span>WVI 직관</h3>
+              <div class="formula">Value ∝ (Sim(A,C)×Sim(C,B)) / (Sim(A,B)+ε)</div>
+              <p class="small">의외성 + 다리(근거) → 통찰/표현력</p>
+            </div>
+          </div>
+
+          <div class="quote" style="margin-top:12px;">
+            핵심 메시지: <b>“A–B가 멀다는 사실”이 오히려 가치 있는 연결의 조건이 될 수 있다.</b>
+          </div>
+
+          <div class="footer">
+            <span class="pill"><b>포지션</b> PoC(개념 증명) 수준의 간단 실험으로도 확인 가능</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5 -->
+    <section class="slide" id="page-5">
+      <div class="header">
+        <div>
+          <h2>페이지 ⑤ — Moderator(W): 언제 그 연결이 ‘중요’해지는가</h2>
+          <div class="subtitle">
+            WVI가 “연결의 가능성/가치”를 계산한다면, <b>Moderator(W)</b>는 그 연결이
+            실제 상황에서 얼마나 강하게 작동해야 하는지(중요도)를 결정합니다.
+          </div>
+        </div>
+        <div class="badge">Context / Gating</div>
+      </div>
+
+      <div class="content grid-2">
+        <div class="card">
+          <h3><span class="dot"></span>문제: 연결이 가능하다고 항상 유효한가?</h3>
+          <p>
+            “멀리 있는 것”을 연결하는 시도는 자칫하면 <b>무작위 연결</b>로 보일 수 있습니다.
+            그래서 본 모델은 다음을 명확히 분리합니다.
+          </p>
+          <div class="grid-2" style="margin-top:10px;grid-template-columns:1fr 1fr;">
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot green"></span>C의 역할</h3>
+              <p class="small"><b>무엇을 연결할 수 있는가?</b><br/>가능성(다리의 존재)</p>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot warn"></span>W의 역할</h3>
+              <p class="small"><b>언제 그 연결이 중요한가?</b><br/>상황(컨텍스트) 강도</p>
+            </div>
+          </div>
+
+          <div class="sep"></div>
+          <div class="quote" style="border-left-color:var(--warn);background:rgba(255,207,106,0.06);">
+            같은 연결이라도 상황이 약하면 의미가 작고, 상황이 강하면 의미가 커질 수 있다.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot green"></span>최종 영향력(Impact) 정의</h3>
+          <div class="formula">Impact(A, B) = WVI(A, B | C) × W
+
+- W: 상황/맥락의 강도(0~1 등으로 정규화 가능)
+- 목적: “항상 열리는 연결”이 아니라 “조건부로 열리는 연결”</div>
+
+          <h3 style="margin-top:14px;"><span class="dot"></span>시뮬레이션 데이터(발표용 예시)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>단어 쌍 (A-B)</th>
+                <th>Context(W)</th>
+                <th style="width:18%;">W</th>
+                <th style="width:22%;">Impact(예)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cyan – Wrath</td>
+                <td>Extreme Deprivation</td>
+                <td>0.0 → 1.0</td>
+                <td>0.0 → 11.33</td>
+              </tr>
+              <tr>
+                <td>Encryption – Freedom</td>
+                <td>Totalitarian Surveillance</td>
+                <td>0.0 → 1.0</td>
+                <td>0.0 → 6.96</td>
+              </tr>
+              <tr>
+                <td>Clock – Terror</td>
+                <td>Crisis Situation</td>
+                <td>0.0 → 1.0</td>
+                <td>0.0 → 8.10</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="footer">
+            <span class="pill"><b>메시지</b> “연결 가능성(C)”과 “연결 중요도(W)”를 분리해 과잉 연결을 제어</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6 -->
+    <section class="slide" id="page-6">
+      <div class="header">
+        <div>
+          <h2>페이지 ⑥ — 활용 시나리오: 어디에 써먹을 수 있는가</h2>
+          <div class="subtitle">
+            본 모델은 LLM을 대체하지 않고, LLM이 약한 영역(표현의 도약/통찰)을 보완하는
+            <b>창의적 연결 모듈</b>로 설계됩니다.
+          </div>
+        </div>
+        <div class="badge">Applications / Value</div>
+      </div>
+
+      <div class="content">
+        <div class="grid-3">
+          <div class="card">
+            <h3><span class="dot"></span>광고 카피/표현력 강화</h3>
+            <p class="muted">
+              평범한 문장을 “기억에 남는 문장”으로 바꾸는 데 핵심은
+              <b>의외하지만 설득 가능한 연결</b>입니다.
+            </p>
+            <ul>
+              <li>LLM 결과에서 원격 연결 후보를 탐색</li>
+              <li>중간 개념(C) 기반으로 “근거 있는 비유/메타포” 제안</li>
+              <li>상황(W)으로 톤/맥락 적합성 조절</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3><span class="dot green"></span>문서/보고서/스토리텔링</h3>
+            <p class="muted">
+              설명이 길어질수록 전달력은 떨어지고, <b>짧은 문장으로 압축되는 순간</b> 설득력이 생깁니다.
+            </p>
+            <ul>
+              <li>핵심 메시지에 대해 “다리(C)”를 찾아 압축 문장 생성</li>
+              <li>추상/구체를 연결하는 비유 구조 강화</li>
+              <li>독자가 “아!” 하고 이해하는 문장 패턴 유도</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3><span class="dot warn"></span>창의적 생성 엔진의 보조 모듈</h3>
+            <p class="muted">
+              LLM이 만든 초안을 그대로 쓰지 않고, <b>후처리(재연결)</b> 단계에서 통찰을 강화합니다.
+            </p>
+            <ul>
+              <li>1차 생성 → 2차 “WVI 스캐닝”으로 원격 연결 후보 생성</li>
+              <li>Moderator(W)로 상황 적합한 연결만 채택</li>
+              <li>선택된 연결을 문장/구조/아이디어로 재구성</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><span class="dot"></span>권장 사용 방식(시스템 관점)</h3>
+          <div class="grid-2">
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot green"></span>파이프라인 예시</h3>
+              <div class="formula">Step 1) LLM이 기본 초안 생성
+Step 2) (A,B) 후보를 설정(키워드/문장/의도)
+Step 3) C 후보를 탐색 → WVI 최대화
+Step 4) Context W를 반영 → Impact로 게이팅
+Step 5) 선택된 연결을 “표현/비유/관점”으로 재작성</div>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:6px;"><span class="dot warn"></span>설득 포인트</h3>
+              <ul>
+                <li><b>간단한 공식</b>으로도 “관점 전환”을 만든다</li>
+                <li>핵심 구현은 내부 자산으로 보호 가능(공개 범위 조절)</li>
+                <li>보고서/발표에서는 PoC와 사례로 “감이 아님”을 증명</li>
+              </ul>
+              <div class="quote" style="margin-top:10px;">
+                한 문장 요약: <b>멀리 떨어진 개념을, 중간 개념과 상황을 통해 ‘조건부로’ 연결해 표현력과 통찰을 확장한다.</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <span class="pill"><b>핵심 가치</b> 표현력↑, 통찰↑, “평범함” 감소</span>
+            <span class="pill"><b>형태</b> LLM + 보조 모듈(후처리/재연결)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

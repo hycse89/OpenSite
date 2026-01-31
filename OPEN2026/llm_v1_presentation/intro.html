@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Summary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        h1 { font-size: 2.2rem; color: #1e293b; margin-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+        h2 { font-size: 1.5rem; color: #2563eb; margin-top: 30px; margin-bottom: 15px; }
+        h3 { font-size: 1.2rem; color: #475569; margin-top: 25px; margin-bottom: 10px; font-weight: 700; }
+        p { margin-bottom: 15px; word-break: keep-all; }
+        ul, ol { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+        strong { color: #1e293b; font-weight: 700; }
+        .subtitle { color: #64748b; font-size: 1.1rem; margin-bottom: 30px; }
+        .meta { color: #94a3b8; font-size: 0.9rem; margin-bottom: 40px; }
+        blockquote { background: #f8fafc; border-left: 5px solid #2563eb; padding: 15px; margin: 20px 0; color: #475569; }
+    </style>
+</head>
+<body>
+
+    <h1>Executive Summary</h1>
+    <p class="subtitle">: From Sequence to Reasoning (순차 처리에서 추론 능력으로)</p>
+    <p class="meta">DATE: 2026.01.30</p>
+
+    <h2>1. 보고서 개요</h2>
+    <p>본 보고서는 현대 인공지능(AI) 기술의 정점인 거대언어모델(LLM)이 탄생하고 진화해 온 기술적 궤적을 심층 분석한다. 초기 순차 데이터 처리 방식인 <strong>Pre-Attention</strong> 단계에서부터, 인간 수준의 상호작용이 가능한 <strong>ChatGPT</strong>, 그리고 자율적 문제 해결 능력을 갖춘 <strong>Post-ChatGPT(Agent)</strong> 시대에 이르기까지 총 6단계의 기술적 변곡점을 조명한다.</p>
+    <p>이를 통해 단순한 텍스트 생성기를 넘어 '생각하고 행동하는 지능'으로 발전하는 AI의 구조적 진화를 규명한다.</p>
+
+    <h2>2. 기술적 진화의 6단계 (Key Milestones)</h2>
+    <p>본 보고서는 LLM의 발전 과정을 다음과 같은 6단계의 인과적 흐름으로 정의한다.</p>
+    <ul>
+        <li><strong>[0단계] Pre-Attention (The Bottle-neck):</strong> RNN과 LSTM으로 대표되는 시기. 데이터를 순서대로 처리해야 하는 구조적 특성상, 입력 데이터가 길어질수록 정보가 소실되는 '장기 의존성(Long-term Dependency)' 문제와 연산 속도의 한계(병렬 처리 불가)에 직면했던 시기다.</li>
+        <li><strong>[1단계] Attention (The Context):</strong> "모든 입력 데이터를 동시에 본다"는 혁신적 개념의 등장. 문장 내 단어 간의 연관 관계(Attention Score)를 계산하여, 정보의 거리에 상관없이 핵심 맥락을 정확히 파악할 수 있는 메커니즘을 확립했다.</li>
+        <li><strong>[2단계] Transformer (The Scale):</strong> 순환 신경망(RNN)을 완전히 제거하고 Attention 만으로 아키텍처를 구성한 단계. 데이터의 완전한 병렬 처리가 가능해짐에 따라, 모델의 대형화(Scaling)와 대규모 데이터 학습의 물리적 기반이 마련되었다.</li>
+        <li><strong>[3단계] GPT (The Generation):</strong> Transformer의 Decoder 구조를 활용하여 방대한 텍스트 데이터를 사전 학습(Pre-training)한 단계. '다음 단어 예측(Next Token Prediction)'이라는 단순한 목표 학습을 통해 언어의 패턴과 일반 상식을 스스로 내재화한 생성형 AI의 시초다.</li>
+        <li><strong>[4단계] ChatGPT (The Alignment):</strong> 강력한 생성 능력에 인간의 피드백(RLHF)을 결합한 단계. AI가 인간의 의도(Intent)에 부합하도록 정렬(Alignment)됨으로써, 기술이 아닌 '대화형 인터페이스'로서 대중적 상용화에 성공했다.</li>
+        <li><strong>[5단계] Post-ChatGPT (The Agency):</strong> 대화를 넘어 복잡한 문제를 추론(Reasoning)하고 도구(Tool)를 사용하여 해결하는 에이전트(Agent) 단계. 직관적인 빠른 대답(System 1)에서 숙고하는 느린 생각(System 2)으로 지능의 질적 변화가 일어나고 있다.</li>
+    </ul>
+
+    <h2>3. 핵심 기술 패러다임의 변화</h2>
+    <p>이 6단계의 여정은 단순히 모델 성능의 향상이 아닌, AI 구동 원리의 근본적인 <strong>세 가지 패러다임 변화</strong>를 시사한다.</p>
+    <ol>
+        <li><strong>구조(Architecture)의 변화:</strong> 순차적(Sequential) 처리 방식이 가진 기억력과 속도의 한계를 <strong>병렬적(Parallel) 처리와 집중(Attention) 메커니즘</strong>으로 극복하여 연산 효율을 극대화했다.</li>
+        <li><strong>학습(Learning)의 변화:</strong> 지도 학습(Labeled Data)에 의존하던 방식에서, 인터넷상의 방대한 데이터를 스스로 학습하는 <strong>자기지도 학습(Self-Supervised Learning)</strong>과 인간 피드백을 반영하는 <strong>강화 학습(RLHF)</strong>으로 진화했다.</li>
+        <li><strong>역할(Capability)의 변화:</strong> 사용자의 명령에 수동적으로 텍스트를 생성하던 도구에서, 스스로 계획을 수립하고 추론하여 외부 세계와 상호작용하는 <strong>능동적 행위자(Agent)</strong>로 확장되고 있다.</li>
+    </ol>
+
+    <h2>4. 결론</h2>
+    <p>LLM 기술은 이제 '언어 처리'의 영역을 넘어 '논리적 추론'과 '자율 행동'의 영역으로 진입하고 있다. 본 보고서는 이러한 기술적 흐름을 통해 AI가 향후 인간의 지적 노동을 보조하는 수준을 넘어, 복잡한 문제를 해결하는 파트너로서 어떻게 진화할 것인지를 기술적 관점에서 전망한다.</p>
+
+</body>
+</html>

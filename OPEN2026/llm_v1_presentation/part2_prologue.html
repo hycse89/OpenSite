@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 2. Prologue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        h1 { font-size: 2.2rem; color: #1e293b; margin-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+        h2 { font-size: 1.5rem; color: #2563eb; margin-top: 40px; margin-bottom: 15px; border-left: 5px solid #2563eb; padding-left: 15px; }
+        p { margin-bottom: 15px; word-break: keep-all; }
+        ul, ol { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+        strong { color: #1e293b; font-weight: 700; }
+        .subtitle { color: #64748b; font-size: 1.1rem; margin-bottom: 30px; }
+        blockquote { background: #f8fafc; border-left: 5px solid #2563eb; padding: 20px; margin: 30px 0; color: #475569; }
+        
+        code {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #f1f5f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Part 2. Prologue: 아키텍처의 혁신</h1>
+    <p class="subtitle">(The Architecture Shift): 병목을 부수고, 모든 것을 한 번에 보다</p>
+
+    <p><strong>Part 2</strong>는 AI 역사상 가장 드라마틱한 <strong>'패러다임 전환(Paradigm Shift)'</strong>의 순간을 다룹니다. Part 1의 RNN 시대가 "과거의 기억을 잃지 않으려 애쓰던 투쟁의 역사"였다면, Part 2는 <strong>"기억할 필요 없이, 언제든 다시 찾아보면 된다"</strong>는 발상의 전환이 일어난 시기입니다.</p>
+
+    <p>이 시기를 통해 인류는 언어 모델을 <strong>병렬적(Parallel)</strong>으로, 그리고 <strong>초거대 규모(Large Scale)</strong>로 확장할 수 있는 열쇠를 얻게 되었습니다.</p>
+
+    <h2>1. 발상의 전환: 압축(Compression)에서 검색(Retrieval)으로</h2>
+    <p>Part 1에서 확인한 Seq2Seq 모델의 가장 큰 문제는 <strong>'정보의 압축'</strong>이었습니다. 수백 페이지의 책 내용을 문장 하나(고정 벡터)에 요약하려다 보니 정보 손실은 필연적이었습니다.</p>
+
+    
+
+    <p>여기서 천재적인 아이디어가 등장합니다.</p>
+    
+    <blockquote>
+        <strong>"왜 굳이 압축해야 하지? 원문을 그대로 두고, 번역할 때마다 필요한 부분을 '참조(Attend)'하면 되잖아?"</strong><br>
+        이것이 바로 <strong>제2장. Attention</strong>의 핵심입니다.
+    </blockquote>
+
+    <ul>
+        <li><strong>비유:</strong> 시험 칠 때 모든 내용을 머리에 암기(RNN)해서 들어가는 것이 아니라, <strong>오픈북 테스트(Attention)</strong>를 하는 것과 같습니다. 모르는 게 나오면 책을 펼쳐서 해당 부분을 찾아보면 됩니다.</li>
+        <li><strong>혁신:</strong> 이로써 모델은 아무리 긴 문장이라도 정보의 손실 없이, 주어와 서술어 사이의 거리가 멀어도 정확하게 <strong>맥락(Context)</strong>을 연결할 수 있게 되었습니다.</li>
+    </ul>
+
+    <h2>2. 과감한 결단: RNN의 폐기 (Attention Is All You Need)</h2>
+    <p>Attention은 처음에 RNN을 보조하는 도구로 개발되었습니다. 하지만 2017년, 구글의 연구진은 충격적인 가설을 세웁니다.</p>
+    <p><strong>"Attention이 이렇게 강력하다면, 느려 터진 RNN은 굳이 필요 없지 않을까?"</strong></p>
+    <p>이 가설을 증명한 것이 바로 <strong>제3장. Transformer</strong>입니다.</p>
+
+    
+
+    <ul>
+        <li><strong>순환의 제거:</strong> 그들은 과감하게 신경망에서 루프(Loop)를 뜯어냈습니다. 시간의 흐름을 제거한 것입니다.</li>
+        <li><strong>병렬화의 실현:</strong> 순서가 사라지자, 문장 전체를 한꺼번에 행렬(Matrix)로 입력받아 처리할 수 있게 되었습니다. 이는 GPU의 수천 개 코어를 동시에 가동할 수 있음을 의미했고, <strong>학습 속도를 수백 배 이상 가속화</strong>시켰습니다.</li>
+    </ul>
+
+    <h2>3. 새로운 질서: 위치(Position)와 다면적 시각(Multi-Head)</h2>
+    <p>순서를 없앤 대가로 Transformer는 "아버지가 가방에"와 "가방이 아버지에"를 구별하지 못하는 상태가 되었습니다. 이를 해결하기 위해 두 가지 기술적 장치가 도입되었습니다.</p>
+    <ol>
+        <li><strong>Positional Encoding:</strong> 단어의 의미 벡터에 수학적인 <strong>'위치 신호'</strong>를 더해주어, 순서 정보를 복원했습니다.</li>
+        <li><strong>Multi-Head Attention:</strong> 문장을 볼 때 '문법'만 보는 머리, '의미'만 보는 머리, '감정'을 보는 머리를 따로 두어, 언어를 입체적으로 이해하게 만들었습니다.</li>
+    </ol>
+
+    <h2>4. Part 2의 의의</h2>
+    <p>Part 2는 단순히 번역 성능을 높인 것이 아닙니다. <strong>"데이터를 많이 넣으면 넣을수록 지능이 높아지는 구조(Scalable Architecture)"</strong>를 완성했다는 데에 진정한 의의가 있습니다.</p>
+    <p>이 견고한 토대(Transformer) 위에, 인터넷의 모든 데이터를 쏟아부어 탄생한 것이 바로 다음 <strong>Part 3</strong>의 주인공, <strong>GPT</strong>입니다.</p>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제4장. GPT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        h1 { font-size: 2.2rem; color: #1e293b; margin-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+        h2 { font-size: 1.5rem; color: #2563eb; margin-top: 50px; margin-bottom: 20px; border-left: 5px solid #2563eb; padding-left: 15px; }
+        h3 { font-size: 1.2rem; color: #475569; margin-top: 30px; margin-bottom: 10px; font-weight: 700; }
+        p { margin-bottom: 15px; word-break: keep-all; }
+        ul, ol { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+        strong { color: #1e293b; font-weight: 700; }
+        .subtitle { color: #64748b; font-size: 1.1rem; margin-bottom: 30px; }
+        
+        blockquote { 
+            background: #fff1f2; 
+            border-left: 5px solid #e11d48; 
+            padding: 20px; 
+            margin: 30px 0; 
+            color: #881337;
+        }
+        
+        /* 코드 블록 스타일 (프롬프트 예시용) */
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+        code { font-family: 'Roboto Mono', monospace; }
+
+        /* 테이블 스타일 */
+        table { width: 100%; border-collapse: collapse; margin: 30px 0; font-size: 0.95rem; }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
+        th { background-color: #f1f5f9; font-weight: 700; color: #475569; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+    </style>
+</head>
+<body>
+
+    <h1>제4장. GPT: 생성형 사전학습(Generative Pre-training)</h1>
+    <p class="subtitle">: 다음 단어를 맞추다 보니, 세상의 패턴을 깨우치다</p>
+
+    <p>제4장은 <strong>GPT(Generative Pre-trained Transformer)</strong>가 어떻게 인공지능의 패러다임을 '지도 학습(Supervised)'에서 <strong>'자기지도 학습(Self-Supervised)'</strong>으로 전환시켰는지, 그리고 그 단순한 학습 방식이 어떻게 인간 수준의 언어 능력을 만들어냈는지를 규명합니다.</p>
+
+    <h2>4.1. Decoder-Only 아키텍처의 선택 이유</h2>
+    
+    <h3>4.1.1. 이해(Encoder) vs 생성(Decoder)</h3>
+    <p>BERT가 문장의 빈칸을 채우는 이해(Understanding)에 집중했다면, OpenAI는 <strong>"지능의 본질은 다음 상황을 예측하는 능력이다"</strong>라고 판단하여 디코더(Decoder) 구조를 선택했습니다.</p>
+
+    <h3>4.1.2. 인과적 마스킹 (Causal Masking)</h3>
+    <p>일반적인 Attention과 달리, 미래의 단어를 미리 보지 못하도록 가리는(Masking) 기법입니다. 이는 시간의 흐름에 따라 사고하는 <strong>자기회귀(Autoregressive)</strong> 특성을 부여합니다.</p>
+    
+    
+    <blockquote>
+        <strong>핵심:</strong> 불확실한 미래를 예측하기 위해, 모델은 단순한 패턴 매칭을 넘어 <strong>세상이 돌아가는 원리(World Model)</strong>를 내부적으로 구축해야만 했습니다.
+    </blockquote>
+
+    <h2>4.2. 자기지도 학습: 데이터 라벨링의 종말</h2>
+    
+    <h3>4.2.1. 데이터가 곧 정답이다</h3>
+    <p>기존 지도 학습은 사람이 일일이 정답(Label)을 달아야 했지만, 자기지도 학습은 인터넷 텍스트 그 자체를 정답지로 활용합니다.</p>
+    <ul>
+        <li><strong>입력:</strong> "대한민국의 수도는"</li>
+        <li><strong>목표:</strong> "서울" (다음 단어)</li>
+    </ul>
+    <p>이 방식 덕분에 라벨링 비용이 '0'이 되었고, 위키피디아와 책 등 인터넷의 모든 데이터를 학습 재료로 쓸 수 있게 되었습니다.</p>
+
+    <h3>4.2.2. 다음 토큰 예측 (Next Token Prediction)</h3>
+    <p>단순해 보이지만, 다음 단어를 정확히 맞추기 위해서는 문법, 상식, 논리적 추론 능력이 모두 필요합니다.</p>
+
+    <h2>4.3. Scaling Laws: 거대함이 곧 지능이다</h2>
+    
+    <h3>4.3.1. 카플란의 발견 (Power Law)</h3>
+    <p>OpenAI 연구진은 모델의 성능(Loss)이 <strong>모델 크기(\(N\)), 데이터 양(\(D\)), 연산량(\(C\))</strong>과 로그 함수 관계를 그리며 정직하게 비례한다는 사실을 발견했습니다.</p>
+    <p style="text-align: center; font-size: 1.1em; margin: 20px 0;">\[ L(N) \approx (N_c/N)^\alpha \]</p>
+    
+
+    <h3>4.3.2. 창발성 (Emergence)</h3>
+    <p>모델이 특정 임계점을 넘어서는 순간, 이전에는 없던 능력(코딩, 산술 연산 등)이 갑자기 튀어나오는 현상입니다. 이는 양(Quantity)이 질(Quality)을 변화시킨다는 것을 의미합니다.</p>
+
+    <h3>4.3.3. GPT 시리즈의 진화</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>모델</th>
+                <th>출시 연도</th>
+                <th>파라미터 수</th>
+                <th>특징</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GPT-1</td>
+                <td>2018</td>
+                <td>1.17억 개</td>
+                <td>가능성 확인</td>
+            </tr>
+            <tr>
+                <td>GPT-2</td>
+                <td>2019</td>
+                <td>15억 개</td>
+                <td>문맥 이해 및 작문 시작</td>
+            </tr>
+            <tr>
+                <td><strong>GPT-3</strong></td>
+                <td><strong>2020</strong></td>
+                <td><strong>1,750억 개</strong></td>
+                <td><strong>Few-shot Learning 발현, 상업적 가치 증명</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4.4. In-Context Learning: 가르치지 않아도 배운다</h2>
+    <p>GPT-3부터는 별도의 파라미터 업데이트(Fine-tuning) 없이, 프롬프트 창에 예시를 보여주는 것만으로 작업을 수행하는 능력이 생겼습니다.</p>
+
+    <h3>4.4.1. Zero, One, Few-shot</h3>
+    <pre>
+[Few-shot 예시]
+영어: Good morning -> 한국어: 좋은 아침
+영어: Apple -> 한국어: 사과
+영어: Thank you -> 한국어: </pre>
+    <p>모델은 위 예시를 보고 "아, 번역을 하라는 거구나"라고 패턴을 파악하여 "고맙습니다"라는 정답을 내놓습니다. 이를 <strong>메타 학습(Meta-Learning)</strong>이라고도 합니다.</p>
+
+    <h2>4.5. 결론: 똑똑하지만 제멋대로인 천재</h2>
+    <p>GPT는 인터넷의 모든 지식을 흡수했지만, 치명적인 문제가 남았습니다.</p>
+    <ul>
+        <li><strong>목표 불일치:</strong> 사용자의 의도(Intent)보다는 확률적으로 이어질 말을 생성하는 데 집중합니다.</li>
+        <li><strong>환각(Hallucination):</strong> 그럴듯한 거짓말을 천연덕스럽게 지어냅니다.</li>
+        <li><strong>편향(Bias):</strong> 학습 데이터에 포함된 혐오 표현이나 차별을 그대로 답습합니다.</li>
+    </ul>
+
+    <blockquote>
+        <strong>요약:</strong> "우리는 페라리 같은 강력한 엔진(GPT)을 만들었다. 하지만 이 차에는 핸들과 브레이크(Alignment)가 없다."<br>
+        이 문제를 해결하기 위해 <strong>제5장. ChatGPT(RLHF)</strong>가 등장합니다.
+    </blockquote>
+
+</body>
+</html>

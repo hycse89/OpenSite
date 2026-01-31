@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part I. 각성: CTO로서의 개인 - Micro MOT v3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        :root {
+            --primary-dark: #1a2a3a;
+            --accent-red: #d63031;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --bg-light: #f9f9fb;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            line-height: 1.85;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Progress Bar */
+        .progress-container { position: fixed; top: 0; width: 100%; height: 4px; background: transparent; z-index: 1000; }
+        .progress-bar { height: 4px; background: var(--accent-red); width: 0%; }
+
+        nav {
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .nav-brand { font-weight: 900; color: var(--primary-dark); text-decoration: none; font-size: 1.1rem; }
+        .back-link { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: 0.3s; }
+        .back-link:hover { color: var(--accent-red); }
+
+        .content-container { max-width: 800px; margin: 80px auto; padding: 0 30px; background: white; box-shadow: 0 0 50px rgba(0,0,0,0.03); border-radius: 8px; padding-top: 60px; padding-bottom: 60px; }
+
+        /* Chapter Header */
+        .chapter-intro { text-align: center; margin-bottom: 100px; }
+        .chapter-number { color: var(--accent-red); font-weight: 800; font-size: 1.2rem; letter-spacing: 3px; display: block; margin-bottom: 20px; }
+        h1 { font-size: 3rem; color: var(--primary-dark); margin-bottom: 30px; line-height: 1.2; letter-spacing: -1.5px; }
+        .chapter-summary { font-size: 1.25rem; color: var(--text-muted); font-weight: 300; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 30px 0; display: inline-block; }
+
+        /* Section Styling */
+        section { margin-bottom: 120px; }
+        h2 { font-size: 2rem; color: var(--primary-dark); margin-top: 0; display: flex; align-items: center; gap: 15px; }
+        h2::before { content: ""; width: 4px; height: 32px; background: var(--accent-red); border-radius: 2px; }
+        
+        h3 { font-size: 1.5rem; color: var(--primary-dark); margin-top: 40px; }
+
+        p { margin-bottom: 25px; text-align: justify; }
+
+        /* Quote Boxes */
+        .insight-box {
+            background: #fff9f9;
+            border-left: 4px solid var(--accent-red);
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .insight-box strong { color: var(--accent-red); display: block; margin-bottom: 10px; font-size: 1.1rem; }
+
+        /* Comparison Table */
+        .comparison-wrapper { overflow-x: auto; margin: 40px 0; }
+        table { width: 100%; border-collapse: collapse; border-top: 2px solid var(--primary-dark); }
+        th { background: #f8f9fa; padding: 15px; border-bottom: 1px solid var(--border-color); font-weight: 700; text-align: left; }
+        td { padding: 20px 15px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+        .td-label { font-weight: 700; color: var(--accent-red); width: 120px; }
+
+        /* Callout */
+        .callout {
+            background: var(--primary-dark);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        .callout h4 { margin-top: 0; color: #ff7675; font-size: 1.4rem; }
+
+        footer { text-align: center; padding: 100px 0; background: #f1f2f6; border-radius: 0 0 8px 8px; }
+        .next-btn { display: inline-block; background: var(--accent-red); color: white; padding: 18px 45px; text-decoration: none; border-radius: 50px; font-weight: 700; transition: 0.4s; box-shadow: 0 10px 20px rgba(214, 48, 49, 0.2); }
+        .next-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(214, 48, 49, 0.3); }
+
+    </style>
+</head>
+<body>
+
+<div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
+
+<nav>
+    <a href="index.html" class="nav-brand">Micro MOT v3</a>
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+</nav>
+
+<article class="content-container">
+    <header class="chapter-intro">
+        <span class="chapter-number">CHAPTER 01</span>
+        <h1>각성: CTO로서의 개인</h1>
+        <p class="chapter-summary">기술의 노예가 아닌 주권자로 서는 법, <br>개인 기술 경영의 서막</p>
+    </header>
+
+    <section id="s1">
+        <h2>1. 16년 내재화 전쟁의 종식</h2>
+        <p>
+            우리는 지난 수십 년간 <strong>'내재화(Internalization)'</strong>라는 망령에 시달려 왔습니다. 
+            "이 기술을 내가 직접 배워야 하는가? 코딩을 배워야 하나? 데이터 분석을 독학해야 하나?"라는 질문은 
+            직장인과 지식 노동자들을 끊임없이 괴롭혔습니다. 16년이 넘는 긴 시간 동안, 우리는 기술을 습득하지 못하면 도태된다는 공포 속에서 살아왔습니다.
+        </p>
+        
+        <div class="insight-box">
+            <strong>기술의 민주화와 전쟁의 끝</strong>
+            AI는 이 소모적인 전쟁을 한순간에 끝냈습니다. 이제 기술은 '배우는 것'이 아니라 '활용하는 것'으로 그 정의가 바뀌었습니다. 
+            내가 코딩을 몰라도 AI 에이전트가 코드를 짜주고, 내가 통계학을 몰라도 모델이 데이터를 분석합니다. 
+            이것은 기술의 하향 평준화가 아니라, <strong>기술의 민주화</strong>입니다.
+        </div>
+
+        <p>
+            내재화 전쟁의 종식은 곧 '기술의 외주화'가 개개인에게 가능해졌음을 의미합니다. 
+            과거에는 대기업만이 가질 수 있었던 '기술 인프라'를 이제 개인 방구석에서 프롬프트 하나로 가동할 수 있게 되었습니다. 
+            여기서 우리는 질문을 바꿔야 합니다. <strong>"무엇을 배울 것인가"가 아니라, "어떻게 배치할 것인가"로 말입니다.</strong>
+        </p>
+    </section>
+
+    <section id="s2">
+        <h2>2. 개인 CTO 시대의 도래</h2>
+        <p>
+            Micro MOT의 핵심은 당신을 한 명의 '노동자'가 아닌, 한 명의 <strong>'개인 기업 CTO(Chief Technology Officer)'</strong>로 바라보는 데 있습니다. 
+            기업의 CTO는 코딩만 하는 사람이 아닙니다. 어떤 기술을 도입하고, 어떤 솔루션을 폐기하며, 전체적인 기술 로드맵을 어떻게 가져갈지 결정하는 전략가입니다.
+        </p>
+
+        <h3>정체성의 재정의</h3>
+        <div class="comparison-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>Operator (과거의 직장인)</th>
+                        <th>Individual CTO (미래의 증강자)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="td-label">핵심 지표</td>
+                        <td>성실함, 숙련도, 근태</td>
+                        <td>시스템 효율, 자동화율, 가치 창출</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">기술 인식</td>
+                        <td>배워야 할 어려운 과제</td>
+                        <td>부려야 할 유능한 부하 직원</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">문제 해결</td>
+                        <td>자신의 노동력을 투입</td>
+                        <td>기술적 배치(Orchestration)로 해결</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>
+            이제 당신의 가치는 당신의 '손가락'에서 나오는 것이 아니라 당신의 **'설계도'**에서 나옵니다. 
+            기술을 직접 수행하는 실무자(Hands-on worker)에서 기술을 경영하는 경영자(Manager)로의 각성, 
+            이것이 Micro MOT의 첫 걸음입니다.
+        </p>
+    </section>
+
+    <section id="s3">
+        <h2>3. Digital Worker 2.0: 뇌의 확장</h2>
+        <p>
+            생물학적 뇌의 한계를 인정하는 것에서 진정한 성장이 시작됩니다. 인간의 뇌는 고도의 창의적 추론과 의사결정에 최적화되어 있지, 
+            수만 건의 문서를 기억하고 실시간으로 데이터를 대조하는 데는 부적합합니다.
+        </p>
+
+        <div class="callout">
+            <h4>"당신의 뇌를 더 이상 데이터 저장소로 쓰지 마십시오."</h4>
+            <p>Digital Worker 2.0은 외부의 'Context Lake'와 내부의 'Core Reasoning'을 분리합니다.</p>
+        </div>
+
+        <p>
+            <strong>증강된 인간(Augmented Human)</strong>은 기술을 도구로 보는 수준을 넘어, 기술을 자신의 '신경망' 일부로 편입시킵니다. 
+            기억은 데이터베이스에 맡기고, 연산은 AI 모델에 맡기며, 오직 '가치 있는 질문을 던지는 것'과 '최종적인 책임을 지는 결정'만을 인간의 영역으로 남겨둡니다. 
+            이것이 바로 Digital Worker 2.0이 지향하는 **이원화 체계**입니다.
+        </p>
+    </section>
+
+    <footer>
+        <p>Part I을 통해 우리는 '주권'을 되찾았습니다.</p>
+        <h3>이제, 당신의 가치를 담을 그릇을 설계할 시간입니다.</h3>
+        <br>
+        <a href="part2.html" class="next-btn">PART II. 구조: 가치 창출 엔진 보러가기 <i class="fas fa-arrow-right"></i></a>
+    </footer>
+</article>
+
+<script>
+    window.onscroll = function() {myFunction()};
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+</script>
+
+</body>
+</html>
+

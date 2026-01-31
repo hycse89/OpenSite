@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제3장. Transformer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        h1 { font-size: 2.2rem; color: #1e293b; margin-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+        h2 { font-size: 1.5rem; color: #2563eb; margin-top: 50px; margin-bottom: 20px; border-left: 5px solid #2563eb; padding-left: 15px; }
+        h3 { font-size: 1.2rem; color: #475569; margin-top: 30px; margin-bottom: 10px; font-weight: 700; }
+        p { margin-bottom: 15px; word-break: keep-all; }
+        ul, ol { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+        strong { color: #1e293b; font-weight: 700; }
+        .subtitle { color: #64748b; font-size: 1.1rem; margin-bottom: 30px; }
+        
+        blockquote { 
+            background: #fdf2f8; 
+            border-left: 5px solid #db2777; 
+            padding: 20px; 
+            margin: 30px 0; 
+            color: #831843;
+        }
+
+        code {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #f1f5f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+
+        /* 테이블 스타일 */
+        table { width: 100%; border-collapse: collapse; margin: 30px 0; font-size: 0.95rem; }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
+        th { background-color: #f1f5f9; font-weight: 700; color: #475569; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+    </style>
+</head>
+<body>
+
+    <h1>제3장. Transformer: 병렬 처리와 대형화의 기반</h1>
+    <p class="subtitle">: 순환(Recurrence)을 버리고, 속도와 규모를 얻다</p>
+
+    <p>제3장은 현대 AI 역사상 가장 결정적인 분기점(Turning Point)을 다룹니다. 2017년 구글이 발표한 기념비적인 논문 <strong>"Attention Is All You Need"</strong>는 기존의 NLP를 지배하던 RNN 아키텍처를 완전히 폐기하는 과감한 제안을 했습니다.</p>
+
+    <h2>3.1. 패러다임의 전환: "Attention 하나면 충분하다"</h2>
+    
+    <h3>3.1.1. 가설의 증명: "순환(Recurrence)은 필요 없다"</h3>
+    <p>연구진은 <strong>"만약 Attention이 문맥 전체를 한 번에 볼 수 있다면, 굳이 느리고 복잡한 루프(Loop)를 돌면서 정보를 순서대로 넘겨줄 필요가 있을까?"</strong>라는 가설을 세웠습니다.</p>
+    <ul>
+        <li><strong>RNN 제거:</strong> 시간의 흐름(Time Step)을 제거하고, 문장 내 단어 간의 순차적 의존성을 없앴습니다.</li>
+        <li><strong>완전한 병렬화:</strong> 입력 문장의 단어들을 <strong>동시에(Simultaneously)</strong> 행렬로 입력받아 처리합니다.</li>
+    </ul>
+
+    
+
+    <h2>3.2. 병렬 처리(Parallelization): 대형화의 물리적 기반</h2>
+    
+    <h3>3.2.1. 순차적 종속성의 탈피</h3>
+    <p>RNN은 앞 단어의 계산이 끝나야 다음 단어를 계산할 수 있었지만(릴레이 달리기), Transformer는 모든 단어를 한꺼번에 계산합니다.</p>
+    
+    <h3>3.2.2. 행렬 연산과 하드웨어 가속</h3>
+    <p>문장 전체를 하나의 거대한 <strong>행렬(Matrix)</strong>로 취급합니다. 이는 GPU/TPU의 수천 개 코어를 100% 활용할 수 있게 하여 학습 속도를 획기적으로 단축시켰습니다.</p>
+    <blockquote>
+        <strong>결과:</strong> 속도가 빨라졌다는 것은 <strong>"같은 시간 안에 더 많은 데이터를 학습시킬 수 있다"</strong>는 것을 의미하며, 이는 <strong>스케일링 법칙(Scaling Laws)</strong>의 물리적 토대가 되었습니다.
+    </blockquote>
+
+    <h2>3.3. Self-Attention: 스스로를 돌아보다</h2>
+    <p>Self-Attention은 <strong>'하나의 문장 안에서 단어들이 맺고 있는 내부 관계'</strong>를 파악하는 기술입니다.</p>
+    
+    <h3>3.3.1. 대명사 참조 해결 (Coreference Resolution)</h3>
+    <p>"The <strong>animal</strong> didn't cross the street because <strong>it</strong> was too tired."</p>
+    <ul>
+        <li>모델이 'it'을 처리할 때, 문장 내의 'animal'과 높은 연관성(Score)을 가짐을 스스로 계산해냅니다.</li>
+        <li>이를 통해 대명사가 가리키는 대상이나 중의적 표현을 정확히 파악합니다.</li>
+    </ul>
+
+    
+
+    <h2>3.4. Multi-Head Attention: 다각적 시야</h2>
+    
+    <h3>3.4.1. 개념: "공간을 쪼개어 분업하다"</h3>
+    <p>인간이 글을 읽을 때 문법, 의미, 문맥을 동시에 고려하듯, Transformer는 <strong>여러 개의 헤드(Head)</strong>를 두어 입체적인 독해를 수행합니다.</p>
+    
+    <h3>3.4.2. 전문가 위원회 (Committee of Experts)</h3>
+    <ul>
+        <li><strong>Head 1:</strong> 문법적 관계(주어-동사)에 집중</li>
+        <li><strong>Head 2:</strong> 의미적 관계(단어 간 유사성)에 집중</li>
+        <li><strong>Head 3:</strong> 위치적 관계(인접 단어)에 집중</li>
+    </ul>
+    <p>각 헤드가 분석한 결과를 취합(Concatenate)하여 종합적인 판단을 내립니다.</p>
+    
+    
+
+    <h2>3.5. Positional Encoding: 사라진 순서를 찾아서</h2>
+    <p>RNN을 버리면서 모델은 <strong>'단어의 순서'</strong>를 모르게 되었습니다. (<code>['I', 'love', 'you']</code> = <code>['You', 'love', 'I']</code>로 인식)</p>
+    
+    <h3>3.5.1. 해법: 주기 함수 활용</h3>
+    <p>사인(Sine)과 코사인(Cosine) 함수를 사용하여 각 위치마다 고유한 <strong>'위치 벡터'</strong>를 만들어, 단어 임베딩에 더해줍니다(+).</p>
+    <p style="text-align: center; font-size: 1.1em; margin: 20px 0;">\[ PE_{(pos, 2i)} = \sin(pos / 10000^{2i/d_{model}}) \]</p>
+    <p>이로써 모델은 병렬 처리를 하면서도 단어의 순서 정보를 잃지 않게 되었습니다.</p>
+
+    
+
+    <h2>3.6. Transformer의 유산: BERT와 GPT의 분화</h2>
+    <p>Transformer 아키텍처는 이후 두 가지 거대한 흐름으로 갈라집니다.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>특징</th>
+                <th>BERT (Encoder)</th>
+                <th>GPT (Decoder)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>시야 (View)</strong></td>
+                <td>양방향 (과거와 미래 동시에 봄)</td>
+                <td>단방향 (오직 과거만 봄)</td>
+            </tr>
+            <tr>
+                <td><strong>학습 목표</strong></td>
+                <td>빈칸 채우기 (Masked LM)</td>
+                <td>다음 단어 예측 (Next Token Prediction)</td>
+            </tr>
+            <tr>
+                <td><strong>주특기</strong></td>
+                <td>이해, 분류, 정답 추출</td>
+                <td>생성, 작문, 대화</td>
+            </tr>
+            <tr>
+                <td><strong>비유</strong></td>
+                <td><strong>독해력 시험을 치는 학생</strong></td>
+                <td><strong>이야기를 지어내는 작가</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

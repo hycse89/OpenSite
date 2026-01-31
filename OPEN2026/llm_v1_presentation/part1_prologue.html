@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 1. Prologue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        h1 { font-size: 2.2rem; color: #1e293b; margin-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+        h2 { font-size: 1.5rem; color: #2563eb; margin-top: 40px; margin-bottom: 15px; border-left: 5px solid #2563eb; padding-left: 15px; }
+        p { margin-bottom: 15px; word-break: keep-all; }
+        ul, ol { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+        strong { color: #1e293b; font-weight: 700; }
+        .subtitle { color: #64748b; font-size: 1.1rem; margin-bottom: 30px; }
+        blockquote { background: #f8fafc; border-left: 5px solid #64748b; padding: 20px; margin: 30px 0; color: #475569; font-style: italic; }
+        
+        /* 인라인 코드 스타일 (수식 변수 등 강조) */
+        code {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #f1f5f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #d63384;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Part 1. Prologue: 한계의 시대</h1>
+    <p class="subtitle">(The Era of Constraints): 순차적 처리의 딜레마와 기억의 소실</p>
+
+    <p><strong>Part 1</strong>은 거대언어모델(LLM)이 등장하기 전, 자연어 처리(NLP) 기술이 겪었던 근원적인 어려움과 그 한계를 극복하기 위한 초기 시도들을 다룹니다. 이 시기는 <strong>"인간이 언어를 처리하는 방식을 모방하려 했으나, 오히려 그 방식 때문에 갇혀버린 시대"</strong>라고 정의할 수 있습니다.</p>
+
+    <p>우리는 이 시기를 통해 현대적 LLM이 왜 <strong>순환(Recurrence)</strong>을 버리고 <strong>병렬(Parallelism)</strong>을 택해야만 했는지에 대한 당위성을 이해할 수 있습니다.</p>
+
+    <h2>1. 직관의 함정: "언어는 흐름이다"</h2>
+    <p>초기 신경망 연구자들은 언어를 <strong>시계열 데이터(Time-series Data)</strong>로 정의했습니다. 우리가 문장을 읽을 때 왼쪽에서 오른쪽으로 한 단어씩 읽어 내려가듯, AI 모델도 데이터를 순서대로(\(x_1 \rightarrow x_2 \rightarrow x_3\)) 처리하도록 설계했습니다.</p>
+    <p>이 직관을 구현한 것이 바로 <strong>RNN(Recurrent Neural Networks, 순환 신경망)</strong>입니다.</p>
+    <ul>
+        <li><strong>작동 원리:</strong> RNN은 현재의 입력 데이터(\(x_t\))와, 이전 단계까지의 정보가 압축된 은닉 상태(\(h_{t-1}\))를 결합하여 현재의 상태(\(h_t\))를 갱신합니다. 즉, 과거의 기억을 계속해서 다음 단계로 넘겨주는 '릴레이' 방식입니다.</li>
+        <li><strong>의의:</strong> 이 구조 덕분에 AI는 드디어 입력 길이에 상관없이 데이터를 처리할 수 있게 되었고, 문맥(Context)이라는 개념을 희미하게나마 가지게 되었습니다.</li>
+    </ul>
+
+    <h2>2. 구조적 결함: 기억은 흐려진다 (Vanishing Gradient)</h2>
+    <p>하지만 RNN은 치명적인 결함을 안고 있었습니다. 문장이 조금만 길어지면 앞부분의 정보가 뒷부분까지 전달되지 못하고 소실되는 <strong>장기 의존성(Long-term Dependency)</strong> 문제입니다.</p>
+    <ul>
+        <li><strong>정보의 희석:</strong> 정보가 한 단계씩 넘어갈 때마다 행렬 곱셈과 활성화 함수(tanh 등)를 거치게 되는데, 이 과정이 반복되면서 초기 정보(Gradient)가 0에 가깝게 사라지거나(Vanishing), 비정상적으로 폭주(Exploding)하게 됩니다.</li>
+        <li><strong>비유:</strong> 이는 마치 '가족오락관'의 <strong>"말 전하기 게임"</strong>과 같습니다. 첫 번째 사람의 말(초기 입력)이 열 번째 사람에게 가면 완전히 다른 내용이 되거나 잊혀지는 것과 동일한 현상입니다.</li>
+        <li><strong>결과:</strong> 기계 번역에서 주어와 서술어 사이의 거리가 멀어지면 엉뚱한 번역을 내놓는 원인이 되었습니다.</li>
+    </ul>
+
+    <h2>3. 미완의 해결책: LSTM과 GRU</h2>
+    <p>이 '기억상실증'을 치료하기 위해 등장한 것이 <strong>LSTM(Long Short-Term Memory)</strong>과 <strong>GRU(Gated Recurrent Unit)</strong>입니다.</p>
+    <ul>
+        <li><strong>핵심 아이디어 (Gating):</strong> 무조건 정보를 넘기는 대신, <strong>"무엇을 잊을지(Forget Gate), 무엇을 기억할지(Input Gate)"</strong>를 결정하는 수도꼭지(Gate)를 달았습니다. 이를 통해 중요한 정보는 고속도로처럼 태워 멀리까지 보내는 것이 가능해졌습니다.</li>
+        <li><strong>한계:</strong> LSTM은 성능을 비약적으로 높였지만, <strong>'순차적 처리(Sequential Processing)'</strong>라는 태생적 한계는 극복하지 못했습니다.</li>
+    </ul>
+
+    <h2>4. 결정적 병목: 병렬 처리의 부재</h2>
+    <p>Part 1의 결론이자, 다음 Part 2(Attention & Transformer)로 넘어가는 핵심 트리거는 바로 <strong>'속도와 효율성'</strong>의 문제입니다.</p>
+    <ul>
+        <li><strong>GPU의 낭비:</strong> RNN 계열 모델은 \(t-1\)번째 계산이 끝나야만 \(t\)번째 계산을 할 수 있습니다. 이는 고성능 GPU가 있어도 병렬 연산을 수행할 수 없음을 의미합니다.</li>
+        <li><strong>고정된 벡터의 한계:</strong> 아무리 긴 문장이라도 마지막에는 고정된 크기의 벡터(Context Vector) 하나에 모든 정보를 우겨넣어야 했습니다. 이는 필연적으로 정보 손실을 야기했습니다.</li>
+    </ul>
+
+    <blockquote>
+        결국, 연구자들은 깨달았습니다.<br>
+        <strong>"순서대로 읽어서는 안 된다. 문장 전체를 한 번에 보고, 중요한 것을 골라내야 한다."</strong><br>
+        이것이 바로 <strong>Part 2. Attention</strong>의 시대가 열리게 된 배경입니다.
+    </blockquote>
+
+</body>
+</html>

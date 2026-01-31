@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part II. 구조: 가치 창출의 엔진 - Micro MOT v3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        :root {
+            --primary-dark: #2c3e50;
+            --accent-blue: #3498db;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --bg-light: #f9f9fb;
+            --border-color: #dfe6e9;
+            --highlight-bg: #f0f7ff;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            line-height: 1.85;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        /* Progress Bar */
+        .progress-container { position: fixed; top: 0; width: 100%; height: 4px; background: transparent; z-index: 1000; }
+        .progress-bar { height: 4px; background: var(--accent-blue); width: 0%; }
+
+        nav {
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .nav-brand { font-weight: 900; color: var(--primary-dark); text-decoration: none; font-size: 1.1rem; }
+        .back-link { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: 0.3s; }
+        .back-link:hover { color: var(--accent-blue); }
+
+        .content-container { max-width: 850px; margin: 80px auto; padding: 0 40px; background: white; box-shadow: 0 0 50px rgba(0,0,0,0.03); border-radius: 12px; padding-top: 80px; padding-bottom: 80px; }
+
+        /* Chapter Header */
+        .chapter-intro { text-align: center; margin-bottom: 100px; }
+        .chapter-number { color: var(--accent-blue); font-weight: 800; font-size: 1.2rem; letter-spacing: 3px; display: block; margin-bottom: 20px; }
+        h1 { font-size: 2.8rem; color: var(--primary-dark); margin-bottom: 30px; line-height: 1.2; letter-spacing: -1.5px; }
+        .chapter-summary { font-size: 1.2rem; color: var(--text-muted); font-weight: 300; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 30px 0; display: inline-block; max-width: 600px; }
+
+        /* Section Styling */
+        section { margin-bottom: 120px; }
+        h2 { font-size: 2rem; color: var(--primary-dark); margin-top: 0; display: flex; align-items: center; gap: 15px; }
+        h2::before { content: ""; width: 4px; height: 32px; background: var(--accent-blue); border-radius: 2px; }
+        
+        h3 { font-size: 1.6rem; color: var(--primary-dark); margin-top: 50px; margin-bottom: 20px; border-left: 3px solid #eee; padding-left: 15px; }
+
+        p { margin-bottom: 25px; text-align: justify; color: #444; }
+
+        /* Quote & Insight Boxes */
+        .insight-box {
+            background: var(--highlight-bg);
+            border-left: 4px solid var(--accent-blue);
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .insight-box strong { color: var(--accent-blue); display: block; margin-bottom: 10px; font-size: 1.1rem; }
+
+        .quote-block {
+            font-style: italic;
+            color: var(--text-muted);
+            padding: 20px 40px;
+            position: relative;
+            margin: 30px 0;
+            background: #fdfdfd;
+            border-radius: 8px;
+        }
+
+        /* Mech Chart / Tables */
+        .mech-chart {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            text-align: center;
+            font-weight: bold;
+        }
+        .mech-step { padding: 15px; background: white; border: 1px solid #ddd; border-radius: 8px; width: 120px; }
+        .arrow { color: var(--accent-blue); font-size: 1.5rem; }
+
+        /* Footnote */
+        .footnote { font-size: 0.9rem; color: var(--text-muted); margin-top: 10px; }
+
+        footer { text-align: center; padding: 100px 0; background: #f1f2f6; border-radius: 0 0 12px 12px; }
+        .next-btn { display: inline-block; background: var(--accent-blue); color: white; padding: 18px 45px; text-decoration: none; border-radius: 50px; font-weight: 700; transition: 0.4s; box-shadow: 0 10px 20px rgba(52, 152, 219, 0.2); }
+        .next-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(52, 152, 219, 0.3); }
+
+    </style>
+</head>
+<body>
+
+<div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
+
+<nav>
+    <a href="index.html" class="nav-brand">Micro MOT v3</a>
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+</nav>
+
+<article class="content-container">
+    <header class="chapter-intro">
+        <span class="chapter-number">PART II</span>
+        <h1>구조: 가치 창출의 엔진</h1>
+        <p class="chapter-summary">지식은 휘발유다. 태워서 가치로 만들지 않으면 유해물질이다.</p>
+    </header>
+
+    <div class="mech-chart">
+        <div class="mech-step">지식<br>(LAKE)</div>
+        <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="mech-step">지능<br>(MODEL)</div>
+        <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="mech-step">역량<br>(OUTPUT)</div>
+    </div>
+
+    <section>
+        <h2>제1장. 지식(LAKE): 재료의 정제와 보존</h2>
+        <p>
+            Micro MOT 시스템의 첫 번째 단계는 지식을 다루는 방식의 혁신입니다. 
+            대부분의 사람들은 지식을 '축적'하는 데 매몰되지만, 시스템적 관점에서 지식은 쌓아두는 보석이 아니라 **연소시켜 에너지를 내야 할 연료**입니다.
+        </p>
+
+        <h3>1.1. 연소 이론: 머릿속 지식은 잠재적 독성 물질이다</h3>
+        <p>
+            알프레드 노스 화이트헤드는 활용되지 않는 지식을 <strong>'무기력한 아이디어(Inert Ideas)'</strong>라고 불렀습니다. 
+            쓰이지 않는 지식은 뇌의 용량을 갉아먹고 판단을 흐리게 만듭니다. 우리는 지식을 수집하는 사서가 아니라, 지식을 태워 세상을 움직이는 엔지니어가 되어야 합니다.
+        </p>
+        <div class="insight-box">
+            <strong>JIT(Just-in-Time) 지식 경영</strong>
+            미리 공부해서 쌓아두지 마십시오. 문제가 발생했을 때, 필요한 만큼의 지식을 AI를 통해 즉시 조달(Procurement)하여 즉시 태우십시오. 이것이 뇌의 효율을 극대화하는 '린(Lean) 사고법'입니다.
+        </div>
+
+        <h3>1.2. 맥락(Context)이 살아있는 지식 저장소</h3>
+        <p>
+            기존의 파일 서버는 '죽은 껍데기'들의 무덤입니다. <code>최종_v2.pptx</code>라는 파일명만으로는 그 안에 담긴 치열한 고민을 알 수 없습니다. 
+            Micro MOT의 <strong>Context Lake</strong>는 결과물(File)이 아닌, 그 결과가 탄생한 **배경, 의도, 참조 자료**를 함께 저장합니다.
+        </p>
+        <div class="quote-block">
+            "정보는 차이를 만드는 차이(A difference that makes a difference)이다." - 그레고리 베이트슨
+        </div>
+    </section>
+
+    <section>
+        <h2>제2장. 기술 & 지능 (MODEL & AGENT)</h2>
+        <p>
+            재료(지식)가 준비되었다면 이를 처리할 엔진(지능)이 필요합니다. 
+            여기서 핵심은 최신 기술을 숭배하는 것이 아니라, 문제 해결에 가장 적합한 **'최적의 기술'**을 선택하는 능력입니다.
+        </p>
+
+        <h3>2.1. 기술 불가지론: 최신보다 적정이 위대하다</h3>
+        <p>
+            E.F. 슈마허의 '적정 기술' 개념은 AI 시대에도 유효합니다. 
+            비명을 감지하는 보안 시스템을 만든다고 가정해 봅시다. 최신 LLM을 써서 음성을 텍스트로 변환(STT)해 해석하는 것보다, 
+            단순히 소리의 파형만 감지하는 50년 된 신호 처리 기술이 더 빠르고 정확할 수 있습니다.
+        </p>
+        <div class="insight-box">
+            <strong>오컴의 면도날 (Occam's Razor)</strong>
+            가장 단순한 솔루션이 가장 강력합니다. AI라는 복잡한 도구를 쓰지 않고도 문제를 해결할 수 있다면, 주저 없이 단순한 알고리즘을 선택하십시오.
+        </div>
+
+        <h3>2.2. 알고리즘의 이원화</h3>
+        <p>
+            AI는 정해진 등산로에서 가장 높은 봉우리를 찾는 **'수학적 등산가'**입니다. 
+            반면 인간은 산을 깎아 터널을 뚫을지, 아니면 아예 다른 산으로 갈지를 결정하는 **'경영적 설계자'**입니다. 
+            AI의 맹목적인 최적화와 인간의 유연한 휴리스틱이 결합될 때 시스템은 완성됩니다.
+        </p>
+    </section>
+
+    <section>
+        <h2>제3장. 역량 & 가치 (Output): 생존의 증명</h2>
+        <p>
+            엔진이 돌아간 결과는 반드시 '가치'로 증명되어야 합니다. "열심히 했습니다"는 아마추어의 변명입니다. 
+            프로페셔널은 오직 **"해결했습니다(Solved)"**라는 결과로만 말합니다.
+        </p>
+
+        <h3>3.1. Do it vs. Solve it</h3>
+        <p>
+            피터 드러커는 전혀 할 필요가 없는 일을 매우 효율적으로 하는 것만큼 쓸모없는 짓은 없다고 경고했습니다. 
+            AI는 100장의 보고서를 1초 만에 쓸 수 있지만(Do it), 그 보고서로 예산을 따내는 것(Solve it)은 인간의 역량입니다. 
+            실행은 과정일 뿐이며, **해결만이 유일한 역량의 지표**입니다.
+        </p>
+
+        <h3>3.2. 가치의 대여(Lease): 시간을 팔지 마라</h3>
+        <p>
+            노동자의 운명인 '시간당 임금'에서 벗어나야 합니다. 
+            내가 직접 일하지 않아도 돌아가는 **'솔루션(SaaS 모델)'**을 구축하여 이를 대여해 주십시오. 
+            당신의 시간은 한정되어 있지만, 당신이 만든 시스템은 무한히 복제 가능합니다.
+        </p>
+        <div class="insight-box">
+            <strong>스킨 인 더 게임 (Skin in the Game)</strong>
+            AI가 만든 결과물에 자신의 이름을 서명(Sign-off)하십시오. 결과에 대한 무한 책임을 지는 태도만이 당신을 AI로 대체 불가능한 존재로 만듭니다.
+        </div>
+    </section>
+
+    <footer>
+        <p>구조(Mechanism)를 이해했다면,</p>
+        <h3>이제 당신의 무기고를 채울 실전 기술을 익힐 차례입니다.</h3>
+        <br>
+        <a href="part3.html" class="next-btn">PART III. 역량: 생존 기술 스펙트럼 보러가기 <i class="fas fa-arrow-right"></i></a>
+    </footer>
+</article>
+
+<script>
+    window.onscroll = function() {myFunction()};
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+</script>
+
+</body>
+</html>
