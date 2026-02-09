@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AX Leader V1 - Compact Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --secondary-color: #3a7bd5;
+            --accent-color: #ff4b1f;
+            --bg-card: rgba(255, 255, 255, 0.08);
+            --border-card: rgba(255, 255, 255, 0.2);
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+        
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #111; }
+        .reveal { color: var(--text-main); }
+        
+        /* [수정 1] 전체 슬라이드 패딩 축소 (40px -> 20px) */
+        .reveal .slides > section {
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px; 
+            box-sizing: border-box;
+            text-align: left;
+        }
+        
+        .reveal .slides > section::-webkit-scrollbar { width: 6px; }
+        .reveal .slides > section::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 4px; }
+        .reveal .slides > section::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); }
+
+        h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: none; }
+        
+        /* [수정 2] 챕터 제목 크기 및 여백 축소 */
+        h2.chapter-title {
+            font-size: 1.8em; /* 2.2 -> 1.8 */
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px; /* 15 -> 10 */
+            margin-bottom: 20px; /* 30 -> 20 */
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(90deg, var(--primary-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* [수정 3] 그리드 간격 축소 */
+        .grid-container {
+            display: grid;
+            gap: 15px; /* 25 -> 15 */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .full-width { grid-column: 1 / -1; }
+
+        /* [수정 4] 카드 내부 패딩 축소 */
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 15px; /* 25 -> 15 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .info-card:hover { transform: translateY(-3px); border-color: var(--primary-color); }
+        
+        .card-header {
+            font-size: 1.1em; /* 1.3 -> 1.1 */
+            font-weight: 700;
+            margin-bottom: 10px; /* 15 -> 10 */
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+        
+        /* [수정 5] 본문 폰트 사이즈 축소 */
+        .card-body { 
+            font-size: 0.7em; /* 0.85 -> 0.7 */
+            line-height: 1.5; 
+            color: #ddd; 
+        }
+        .card-body ul { margin-left: 15px; margin-top: 5px; }
+        .card-body li { margin-bottom: 4px; }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), rgba(58, 123, 213, 0.1));
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.8em; /* 추가 축소 */
+        }
+
+        /* 프로세스 화살표 등 간격 조정 */
+        .step-process { display: flex; justify-content: space-between; align-items: center; margin: 20px 0; }
+        .step-item { background: #222; padding: 10px; border-radius: 8px; text-align: center; flex: 1; margin: 0 5px; border: 1px solid #444; }
+        .step-arrow { font-size: 1.2em; color: var(--primary-color); }
+        
+        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.7em; }
+        .comparison-table th, .comparison-table td { padding: 8px; border: 1px solid #444; }
+
+        .big-quote {
+            font-size: 1.5em; /* 1.8 -> 1.5 */
+            font-weight: 300;
+            font-style: italic;
+            text-align: center;
+            margin: 30px 0;
+            color: var(--primary-color);
+            position: relative;
+        }
+        .big-quote::before { content: '\201C'; font-size: 3em; position: absolute; top: -20px; left: 0; opacity: 0.3; }
+
+        .part-slide { text-align: center !important; display: flex !important; flex-direction: column; justify-content: center; height: 100%; }
+        .part-slide h1 { font-size: 2.5em; color: var(--primary-color); margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section class="part-slide">
+                <h1>AX Leader V1</h1>
+                <h3>PSSLAB White Paper</h3>
+                <p style="color: var(--text-muted); margin-top: 30px; font-size: 0.9em;">
+                    PSS → ADS → DX → AX 관점에서 본<br>
+                    AX 인력 형성·실험·전수 모델
+                </p>
+                <div style="margin-top: 40px; font-size: 0.7em; border: 1px solid var(--primary-color); display: inline-block; padding: 8px 25px; border-radius: 30px;">
+                    SCROLL DOWN <i class="fas fa-arrow-down"></i>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-clipboard-list"></i> 0. Executive Summary</h2>
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header"><i class="fas fa-exclamation-triangle"></i> 문제의식</div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>구조적 불일치:</strong> 산업(월 단위) vs 교육(년 단위) 속도 차이.</li>
+                                <li><strong>기존 한계:</strong> 대학은 검증 중심이라 대응 느림.</li>
+                                <li><strong>위험:</strong> 상업 교육의 성과 압박이 학생에게 전가됨.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header"><i class="fas fa-dna"></i> 핵심 정의</div>
+                        <div class="card-body">
+                            <p><strong>PSS → ADS → DX → AX</strong></p>
+                            <ul>
+                                <li>AX는 유행어가 아닌 <strong>인간-시스템 관계의 장기 연구</strong>.</li>
+                                <li>특정 도구 종속 없이 철학과 구조 유지.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card full-width">
+                        <div class="card-header"><i class="fas fa-drafting-compass"></i> 해결책: 환경 설계</div>
+                        <div class="card-body" style="display: flex; gap: 20px;">
+                            <div style="flex: 1;">
+                                <strong>1. 실전 환경:</strong> Chat/API, LLM/SLM 전제<br>
+                                <strong>2. 규칙 기반:</strong> 예외 없는 기준과 재현성
+                            </div>
+                            <div style="flex: 1;">
+                                <strong>3. 자동 선별:</strong> 선택에 따른 결과(탈락/승격)<br>
+                                <strong>4. 지속 성장:</strong> 장기 지식 인프라 제공
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <strong>"빠르되, 소모하지 않는다. 교육이 아니라 환경을 제공한다."</strong>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-bolt"></i> 1. 문제 정의: 구조적 불일치</h2>
+                
+                <div class="grid-container grid-3">
+                    <div class="info-card" style="border-color: var(--accent-color);">
+                        <div class="card-header" style="color: var(--accent-color);"><i class="fas fa-fire"></i> 1.1 수요 폭발</div>
+                        <div class="card-body">
+                            <p><strong>AX 인력 ≠ 단순 기술자</strong></p>
+                            <ul>
+                                <li>AI를 업무 파트너로 인식</li>
+                                <li>문제를 AI 친화적으로 재정의</li>
+                                <li>비용/리스크 고려 설계</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border-color: var(--accent-color);">
+                        <div class="card-header" style="color: var(--accent-color);"><i class="fas fa-tachometer-alt"></i> 1.2 속도 괴리</div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>산업:</strong> 월 단위 변화</li>
+                                <li><strong>교육:</strong> 학위/학기 단위</li>
+                            </ul>
+                            <p style="font-size: 0.9em; color: #aaa;">*교육이 느린 건 설계 목적이 다르기 때문.</p>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border-color: var(--accent-color);">
+                        <div class="card-header" style="color: var(--accent-color);"><i class="fas fa-university"></i> 1.3 대학 한계</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>형식(학점/논문) 중심 평가</li>
+                                <li>최신 도구 환경 제공 난항</li>
+                                <li>역할 분리의 경직성</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card full-width" style="margin-top: 15px;">
+                    <div class="card-header">제3의 경로 필요성</div>
+                    <div class="card-body">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>구분</th>
+                                <th>대학 모델</th>
+                                <th>상업 교육</th>
+                                <th style="background: rgba(0,210,255,0.2);">PSSLAB 모델</th>
+                            </tr>
+                            <tr>
+                                <td><strong>속도</strong></td>
+                                <td>느림 (검증)</td>
+                                <td>빠름 (결과)</td>
+                                <td><strong>빠름 (실험)</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>리스크</strong></td>
+                                <td>낮음</td>
+                                <td>학생 전가</td>
+                                <td><strong>구조 흡수</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-brain"></i> 2. 철학적·이론적 배경</h2>
+                
+                <div class="step-process">
+                    <div class="step-item">
+                        <h4 style="color:var(--primary-color); margin:0; font-size:1em;">PSS</h4>
+                        <p style="font-size:0.6em; margin:0;">가치 본질</p>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="step-item">
+                        <h4 style="color:var(--primary-color); margin:0; font-size:1em;">ADS</h4>
+                        <p style="font-size:0.6em; margin:0;">구조적 언어</p>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="step-item">
+                        <h4 style="color:var(--primary-color); margin:0; font-size:1em;">DX</h4>
+                        <p style="font-size:0.6em; margin:0;">디지털 확장</p>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="step-item" style="border-color: var(--primary-color);">
+                        <h4 style="color:#fff; margin:0; font-size:1em;">AX</h4>
+                        <p style="font-size:0.6em; margin:0;">인간 재통합</p>
+                    </div>
+                </div>
+
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header">2.1 PSS & 2.3 ADS</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>가치는 물건이 아닌 <strong>행위와 맥락</strong> 속에서 생성.</li>
+                                <li><strong>Analog(인간)</strong>와 <strong>Digital(규칙)</strong>의 긴장과 결합이 핵심.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">2.6 AX의 필연성</div>
+                        <div class="card-body">
+                            <p>"AX는 DX로 확장된 Digital 시스템을 다시 <strong>인간 경험(Analog)으로 재통합</strong>하는 국면."</p>
+                            <ul>
+                                <li>AI는 도구가 아닌 인간 판단을 증폭시키는 <strong>행위자</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-history"></i> 3. PSS → ADS → DX → AX 계보</h2>
+                
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header">3.1 계보의 중요성</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>AX를 "DX 다음 단계"나 "단순 유행"으로 보면 실패.</li>
+                                <li>구조적 변화의 최신 국면으로 이해해야 함.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">3.7 역할 재설계</div>
+                        <div class="card-body">
+                            <p><strong>"무엇을 자동화할 것인가" (X)<br> "무엇을 인간이 계속할 것인가" (O)</strong></p>
+                            <ul>
+                                <li>기술 선택보다 <strong>역할 설계</strong>가 핵심.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>3.8 인력 형성:</strong> AX 인력은 새로운 기술자가 아니라, <strong>인간-AI 관계를 설계할 수 있는 사람</strong>이다.
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-compass"></i> 4. PSSLAB 접근 목적과 원칙</h2>
+                <div class="grid-container grid-3">
+                    <div class="info-card" style="text-align: center;">
+                        <i class="fas fa-tree" style="font-size: 2em; color: var(--primary-color); margin-bottom: 10px;"></i>
+                        <div class="card-header" style="justify-content: center;">4.1 환경 설계</div>
+                        <div class="card-body">
+                            가르침보다 <strong>조건</strong>,<br>
+                            관리보다 <strong>구조</strong> 제공.
+                        </div>
+                    </div>
+                    <div class="info-card" style="text-align: center;">
+                        <i class="fas fa-running" style="font-size: 2em; color: var(--primary-color); margin-bottom: 10px;"></i>
+                        <div class="card-header" style="justify-content: center;">4.2 속도/보호</div>
+                        <div class="card-body">
+                            조기 투입하되,<br>
+                            사람을 <strong>소모하지 않음</strong>.
+                        </div>
+                    </div>
+                    <div class="info-card" style="text-align: center;">
+                        <i class="fas fa-layer-group" style="font-size: 2em; color: var(--primary-color); margin-bottom: 10px;"></i>
+                        <div class="card-header" style="justify-content: center;">4.3 지속 성장</div>
+                        <div class="card-body">
+                            단기 훈련 넘어<br>
+                            <strong>성장 기반</strong> 마련.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-layer-group"></i> 5. 단계별 구조 (Levels)</h2>
+                <p style="margin-bottom: 15px; font-size: 0.7em;">단계 = 성취(Achievement)가 아닌 <strong>책임(Responsibility)</strong>의 범위</p>
+                
+                <div class="grid-container grid-2">
+                    <div class="info-card" style="border-left: 4px solid #fff;">
+                        <div class="card-header">⚪ 수료 (Completion)</div>
+                        <div class="card-body">
+                            <strong>"아는 사람" / 관찰자</strong>
+                            <ul><li>목표: 세계관 이해, 부적합 조기 인식.</li></ul>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border-left: 4px solid #cd7f32;">
+                        <div class="card-header" style="color:#cd7f32;">🟤 브론즈 (Bronze)</div>
+                        <div class="card-body">
+                            <strong>"쓸 수 있는 사람" (생존선)</strong>
+                            <ul><li>필수: AI(Chat/API) + <strong>CS 기초(3학년)</strong>.</li></ul>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border-left: 4px solid #c0c0c0;">
+                        <div class="card-header" style="color:#c0c0c0;">⚪ 실버 (Silver)</div>
+                        <div class="card-body">
+                            <strong>"설계하는 사람" (석사급)</strong>
+                            <ul><li>목표: 자기주도 문제 정의, <strong>영어 발표</strong>.</li></ul>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border-left: 4px solid #ffd700;">
+                        <div class="card-header" style="color:#ffd700;">🟡 골드/블랙</div>
+                        <div class="card-body">
+                            <strong>"만드는 사람" (공동 창작)</strong>
+                            <ul><li>기준: 시험(X) → <strong>기여(O)</strong> 기반 승급.</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-filter"></i> 6. 평가·탈락·재진입</h2>
+                
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header">평가 본질 & 자동 탈락</div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>"누가 책임을 질 수 있는가"</strong> 확인.</li>
+                                <li><strong>자동 탈락:</strong> 미제출, 기준 미달 시 예외 없음.</li>
+                                <li>탈락은 실패가 아니라 '구조적 부적합' 확인.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">핵심 평가 기준</div>
+                        <div class="card-body">
+                            <ol>
+                                <li><strong>문제 정의:</strong> AX 의미가 있는가?</li>
+                                <li><strong>설계 정당성:</strong> 모델 선택 이유?</li>
+                                <li><strong>설명/재현 가능성:</strong> 이해 및 로그 확인.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card full-width" style="margin-top: 15px;">
+                    <div class="card-header">6.4 비용 = 설계 능력 지표</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>무분별한 토큰 사용 = 감점 (설계 부족).</li>
+                            <li>비용 절감을 위한 구조적 시도 = 가점.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-coins"></i> 7. AI 사용 구조와 비용</h2>
+                
+                <div class="highlight-box" style="margin-bottom: 20px;">
+                    "비용은 돈 문제가 아니라 <strong>구조 통제</strong>의 문제다."
+                </div>
+
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header">7.3 중앙 게이트웨이</div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>방식:</strong> 개인 결제 금지. 중앙 관리형 계정.</li>
+                                <li><strong>장점:</strong> 공정성 확보, 비용 예측 가능.</li>
+                                <li><strong>기능:</strong> 로그 전수 수집 → 평가 활용.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">7.4 4대 환경 제공</div>
+                        <div class="card-body">
+                            <p>초기부터 아래 4가지를 모두 제공</p>
+                            <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+                                <li style="background: #333; padding: 3px;">Chat LLM</li>
+                                <li style="background: #333; padding: 3px;">Chat SLM</li>
+                                <li style="background: #333; padding: 3px;">API LLM</li>
+                                <li style="background: #333; padding: 3px;">API SLM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-cogs"></i> 8. AI 기반 운영 시스템</h2>
+                <p style="margin-bottom:15px; font-size:0.7em;">운영은 목적이 아니라 <strong>조건</strong>이어야 합니다.</p>
+                
+                <div class="step-process">
+                    <div class="step-item">
+                        <h4 style="margin:0; font-size:0.9em;">운영자</h4>
+                        <p style="font-size:0.6em; margin:0;">병목 제거</p>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="step-item" style="border-color: var(--primary-color);">
+                        <h4 style="color:var(--primary-color); margin:0; font-size:0.9em;">AI 시스템</h4>
+                        <p style="font-size:0.6em; margin:0;">실행/1차평가</p>
+                    </div>
+                    <div class="step-arrow"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="step-item">
+                        <h4 style="margin:0; font-size:0.9em;">참여자</h4>
+                        <p style="font-size:0.6em; margin:0;">자율 수행</p>
+                    </div>
+                </div>
+
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header">8.3 AI의 역할</div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>과제:</strong> 자동 생성/난이도 조정.</li>
+                                <li><strong>평가:</strong> 형식 요건, 설명 구조, 로그 분석.</li>
+                                <li><strong>로그:</strong> 사고의 흔적 분석.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">8.5 감정 노동 제거</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>탈락/피드백을 규칙 기반 시스템이 수행.</li>
+                                <li>개인적 거절이 아닌 '구조적 결과'로 인식.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-network-wired"></i> 9. 비독점적 전수와 재현</h2>
+                
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header">확대(Scale) vs 재현(Repro)</div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>확대 지양:</strong> 독점, 종속성, 리스크 증가.</li>
+                                <li><strong>재현 지향:</strong> 각자 맥락에서 자율 작동.</li>
+                                <li>목표: 창시자 없이 돌아가는 시스템.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">파일럿의 의미</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>사람 시험(X) → <strong>구조 검증(O)</strong>.</li>
+                                <li>실패 사례까지 지식으로 정리.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <strong>지속적 기여:</strong> 중앙이 운영 권한을 독점하지 않으며, 기여는 지속되나 통제는 없다.
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-book"></i> 10. 컨텐츠 전략</h2>
+                <div class="highlight-box" style="margin-bottom:20px;">
+                    "컨텐츠는 정답집이 아니라, <strong>사고와 실험의 축적(성장 인프라)</strong>이다."
+                </div>
+
+                <div class="grid-container grid-2">
+                    <div class="info-card">
+                        <div class="card-header">10.3 구성 요소</div>
+                        <div class="card-body">
+                            <ol>
+                                <li><strong>방법론:</strong> 문제 정의 프레임.</li>
+                                <li><strong>실패 기록:</strong> '왜 안 되었는가' 중시.</li>
+                                <li><strong>기술 MVP:</strong> 사고의 출발점 제공.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">10.5 컨텐츠와 사람</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>컨텐츠는 락인(Lock-in) 수단 아님.</li>
+                                <li><strong>떠나서도 성장하게 하는 도구</strong>.</li>
+                                <li>사고 프레임은 개인에게 남는다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title"><i class="fas fa-hand-holding-heart"></i> 11. 기여·환원·IP 원칙</h2>
+                
+                <div class="grid-container grid-3">
+                    <div class="info-card">
+                        <div class="card-header">IP 관점</div>
+                        <div class="card-body">
+                            독점(X) → <strong>순환(O)</strong><br>
+                            소유보다 흐름 설계.
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">기여와 권한</div>
+                        <div class="card-body">
+                            권한 = 보상(X)<br>
+                            <strong>책임의 확장(O)</strong>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">공동 창작</div>
+                        <div class="card-body">
+                            개인 커리어 인정.<br>
+                            독점 수익화 불가.
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card full-width" style="margin-top: 15px;">
+                    <div class="card-header">11.6 보호의 목적</div>
+                    <div class="card-body">
+                        폐쇄가 목적이 아님. 오남용, 맥락 없는 복제, <strong>철학 왜곡 방지</strong>가 목적.
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="chapter-title" style="color: #ff6b6b; border-color: #ff6b6b;"><i class="fas fa-ban"></i> 12. 지향하지 않는 것</h2>
+                <p style="margin-bottom:15px; font-size:0.7em;">윤리적 안전장치를 위한 <strong>부정(Not)의 선언</strong></p>
+                
+                <div class="grid-container grid-2">
+                    <div class="info-card" style="border: 1px solid #ff6b6b;">
+                        <div class="card-header" style="color: #ff6b6b;">학생 수단화 금지</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>마케팅용 성공 사례 소비 금지.</li>
+                                <li>학생은 증거가 아닌 <strong>경험 주체</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border: 1px solid #ff6b6b;">
+                        <div class="card-header" style="color: #ff6b6b;">영속화 목표 아님</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>창시자/조직 중심 거부.</li>
+                                <li>사람 사라져도 구조는 남아야 함.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border: 1px solid #ff6b6b;">
+                        <div class="card-header" style="color: #ff6b6b;">정답/안전 미제공</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>불확실성을 <strong>다루는 법</strong> 훈련.</li>
+                                <li>취업 보장 등 약속 안 함.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-card" style="border: 1px solid #ff6b6b;">
+                        <div class="card-header" style="color: #ff6b6b;">정치적 구조 배제</div>
+                        <div class="card-body">
+                            <ul>
+                                <li>추천/특혜 없음.</li>
+                                <li>예외 없는 규칙으로 신뢰 유지.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="part-slide">
+                <h2 class="chapter-title" style="justify-content: center; border: none;">13. Conclusion</h2>
+                <div class="big-quote">
+                    "AX는 새로운 기술이 아닙니다.<br>
+                    <span style="color:#fff; font-weight:bold;">오래된 질문의 현재형</span>입니다."
+                </div>
+                
+                <div class="grid-container grid-3" style="text-align: left; margin-top: 30px;">
+                    <div class="info-card">
+                        <div class="card-header">연속선</div>
+                        <div class="card-body">
+                            PSS → ADS → DX → AX<br>
+                            관계의 재조정.
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">확산 방식</div>
+                        <div class="card-body">
+                            크게 하지 않는다.<br>
+                            표준화 아닌 <strong>재현</strong>.
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-header">최종 목표</div>
+                        <div class="card-body">
+                            사람 소모 않는 구조.<br>
+                            스스로 성장하는 조건.
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 40px; color: #aaa; font-size: 0.7em;">
+                    <strong>PSSLAB White Paper</strong>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: false,
+            navigationMode: 'linear',
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            width: '100%',
+            height: '100%',
+            margin: 0,
+            minScale: 1,
+            maxScale: 1
+        });
+    </script>
+</body>
+</html>

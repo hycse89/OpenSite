@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>PSSLAB White Paper - Part 2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/night.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; word-break: keep-all; }
+        .reveal p, .reveal li { font-size: 0.8em; line-height: 1.6; }
+        .highlight { color: #f1c40f; font-weight: bold; }
+        .box { border: 1px solid #f1c40f; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .level-badge { display: inline-block; padding: 5px 10px; border-radius: 4px; color: #000; font-weight: bold; margin-right: 10px;}
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+             <section>
+                <h1>PSSLAB White Paper</h1>
+                <h3>Part 2. 시스템과 구조 설계</h3>
+                <p>Chapter 4 ~ 8: 단계, 평가, 비용, 운영</p>
+            </section>
+
+            <section>
+                <h2>4. PSSLAB 접근의 목적과 원칙</h2>
+                <ul>
+                    <li><strong>4.1 교육이 아닌 환경 설계:</strong> 가르침보다 조건, 관리보다 구조.</li>
+                    <li><strong>4.2 빠르되, 소모하지 않음:</strong> 조기 투입하되 사람을 갈아 넣지 않는 설계.</li>
+                    <li><strong>4.3 지속적 성장:</strong> AX는 한 번의 학습으로 끝나지 않음.</li>
+                </ul>
+            </section>
+
+            <section>
+                <section>
+                    <h2>5. 단계별 구조 설계</h2>
+                    <p>성취(Achievement)가 아니라 <strong>역할과 책임(Responsibility)</strong>의 단계</p>
+                </section>
+                <section>
+                    <h3>Level Structure Overview</h3>
+                    <div style="text-align: left;">
+                        <p><span class="level-badge" style="background:#fff;">수료</span> 관찰자: 세계관 공유, 부적합 조기 인식</p>
+                        <p><span class="level-badge" style="background:#cd7f32;">브론즈</span> 실무자: "사람 구실", CS 기초, 기본 설계</p>
+                        <p><span class="level-badge" style="background:#c0c0c0;">실버</span> 전문가: 자기주도 문제 정의, 실패 분석</p>
+                        <p><span class="level-badge" style="background:#ffd700;">골드</span> 기여자: 공동 실험, 방법론 개선</p>
+                        <p><span class="level-badge" style="background:#333; color:#fff; border:1px solid #fff;">블랙</span> 창작자: 구조 설계, 철학 공유</p>
+                    </div>
+                </section>
+                <section>
+                    <h3>5.3 브론즈 (Bronze): 생존선</h3>
+                    <div class="box">
+                        "어디에 가도 기본적인 역할을 수행할 수 있는 AX 실무자"
+                    </div>
+                    <ul>
+                        <li>AI만 아는 사람은 브론즈가 될 수 없음.</li>
+                        <li><strong>요구사항:</strong> CS 기초(3학년 수준), 논리적 사고, AI(Chat/API) 구분 사용.</li>
+                        <li>수학/영어는 강요하지 않으나, 사용 안 하면 자연스럽게 정체됨.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>5.4 실버 (Silver): 설계자</h3>
+                    <ul>
+                        <li><strong>성격:</strong> 석사 과정과 유사한 자기주도성 요구.</li>
+                        <li><strong>핵심:</strong> 정답이 없는 문제를 정의하고, 결과를 재현 가능하게 설명.</li>
+                        <li><strong>영어:</strong> 글로벌 AX 환경 적응을 위한 영어 발표/자료 활용 도입.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>5.5 골드/블랙: 공동 창작자</h3>
+                    <p>시험 통과가 아니라 <strong>기여(Contribution)</strong> 기반 승급.</p>
+                    <ul>
+                        <li>컨텐츠 확장에 기여.</li>
+                        <li>타인의 성장 촉진.</li>
+                        <li>시스템의 공동 책임자.</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h2>6. 평가·탈락·재진입</h2>
+                    <p>선별이 아닌 책임 기반 흐름 설계</p>
+                </section>
+                <section>
+                    <h3>6.1 평가의 본질</h3>
+                    <p>점수 매기기가 아니라 <strong>"누가 어떤 책임을 질 수 있는가"</strong>를 확인.</p>
+                    <ul>
+                        <li><strong>자동 탈락:</strong> 미제출, 기준 미달 시 예외 없음. 정치적 판단 배제.</li>
+                        <li><strong>평가 기준:</strong> 문제 정의, 설계 정당성, 설명 가능성, 재현 가능성.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>6.4 비용과 로그를 평가 도구로</h3>
+                    <p class="highlight">"비용은 돈 문제가 아니라 설계 능력의 문제다."</p>
+                    <ul>
+                        <li>무분별한 토큰 사용 = 설계 능력 부족.</li>
+                        <li>비용 대비 가치, 모델 선택의 정당성을 평가.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>6.6 재진입</h3>
+                    <p>탈락은 영원한 실패가 아닙니다.</p>
+                    <ul>
+                        <li>일정 기간 후 재진입 허용.</li>
+                        <li>재진입은 '구제'가 아니라 '책임의 재선택'.</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h2>7. AI 사용 구조와 비용</h2>
+                    <p>비용 폭탄은 '비싸서'가 아니라 '통제되지 않아서' 발생합니다.</p>
+                </section>
+                <section>
+                    <h3>7.3 중앙 게이트웨이 (Central Gateway)</h3>
+                    <ul>
+                        <li>개인 결제/API 키 사용 지양 (공정성 확보).</li>
+                        <li>중앙에서 사용량, 모델, 로그 관리.</li>
+                        <li>로그를 역량 평가의 핵심 근거로 활용.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>7.4 Chat/API & LLM/SLM 동시 제공</h3>
+                    <p>초기부터 4가지 환경을 모두 제공합니다.</p>
+                    <ol>
+                        <li>Chat LLM</li>
+                        <li>Chat SLM</li>
+                        <li>API based LLM</li>
+                        <li>API based SLM</li>
+                    </ol>
+                    <p class="highlight">SLM과 API를 모르면 AX 설계를 할 수 없습니다.</p>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h2>8. AI 기반 운영 시스템</h2>
+                    <p>운영은 목적이 아니라 조건입니다.</p>
+                </section>
+                <section>
+                    <h3>8.1 운영의 병목 제거</h3>
+                    <ul>
+                        <li>운영자 개인의 체력에 의존하지 않는 구조.</li>
+                        <li>판단은 규칙으로, 실행은 시스템(AI)으로.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>8.3 AI의 운영 역할</h3>
+                    <ul>
+                        <li><strong>과제 생성:</strong> 개인별 난이도 조정.</li>
+                        <li><strong>1차 평가:</strong> 형식 요건, 설명 구조 분석.</li>
+                        <li><strong>로그 분석:</strong> 사고와 설계의 흔적 추적.</li>
+                    </ul>
+                    <p>인간 운영자는 관리자가 아니라 <strong>구조 설계자</strong>로 남습니다.</p>
+                </section>
+            </section>
+
+             <section>
+                <h3>End of Part 2</h3>
+                <p>다음 파일(Part 3)에서 확장, 컨텐츠 전략, 윤리 원칙이 이어집니다.</p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script>Reveal.initialize({ hash: true, slideNumber: true });</script>
+</body>
+</html>

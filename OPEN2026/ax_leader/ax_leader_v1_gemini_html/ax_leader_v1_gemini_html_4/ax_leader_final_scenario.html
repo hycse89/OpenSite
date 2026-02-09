@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AX Leader Program - Strategic Plan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 디자인 시스템 정의 --- */
+        :root {
+            --primary: #00e5ff;       /* AX 상징: 밝은 시안 */
+            --secondary: #2979ff;     /* 신뢰: 블루 */
+            --accent: #ffeb3b;        /* 강조/경고: 옐로우 */
+            --social: #ff4081;        /* 사회적 가치: 핑크 */
+            --bg-dark: #121212;
+            --bg-card: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.15);
+        }
+
+        body { background-color: var(--bg-dark); font-family: 'Noto Sans KR', sans-serif; }
+        
+        /* 슬라이드 레이아웃 설정 (스크롤 가능) */
+        .reveal .slides > section {
+            height: 100%;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            text-align: left;
+            overflow-y: auto;
+        }
+        
+        /* 스크롤바 커스텀 */
+        .reveal .slides > section::-webkit-scrollbar { width: 6px; }
+        .reveal .slides > section::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+        .reveal .slides > section::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+
+        /* 타이포그래피 */
+        h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: none; letter-spacing: 0.5px; }
+        h2.main-title {
+            font-size: 2.2em;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* --- 인포그래픽 컴포넌트 --- */
+        
+        /* 1. 그리드 레이아웃 */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+
+        /* 2. 카드 디자인 */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s;
+            position: relative;
+        }
+        .card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        
+        .card-icon {
+            font-size: 1.5em;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: inline-block;
+            background: rgba(0, 229, 255, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+        }
+        
+        .card h4 { font-size: 1.1em; color: #fff; margin: 10px 0; font-weight: 700; }
+        .card p, .card li { font-size: 0.75em; color: #ccc; line-height: 1.6; margin-bottom: 5px; }
+
+        /* 3. 프로세스 화살표 흐름 */
+        .process-flow { display: flex; align-items: stretch; gap: 10px; margin: 20px 0; }
+        .process-step { flex: 1; background: #1e1e1e; border: 1px solid var(--border); padding: 15px; border-radius: 8px; text-align: center; position: relative; }
+        .process-step::after {
+            content: '\f061'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; right: -15px; top: 50%; transform: translateY(-50%);
+            color: var(--primary); z-index: 10; font-size: 1.2em;
+        }
+        .process-step:last-child::after { content: none; }
+        .step-num { font-size: 2em; color: rgba(255,255,255,0.1); font-weight: 900; position: absolute; top: 5px; right: 10px; }
+
+        /* 4. 강조 박스 */
+        .alert-box {
+            background: rgba(255, 64, 129, 0.1);
+            border-left: 5px solid var(--social);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .quote-box {
+            font-size: 1.1em;
+            font-style: italic;
+            text-align: center;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        /* 5. 레벨 뱃지 */
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.6em; font-weight: bold; color: #000; margin-right: 5px; }
+        .badge.bronze { background: #cd7f32; }
+        .badge.silver { background: #e0e0e0; }
+        .badge.gold { background: #ffd700; }
+        .badge.black { background: #333; color: #fff; border: 1px solid #fff; }
+
+        /* 제목 슬라이드 전용 */
+        .title-slide { text-align: center; display: flex !important; flex-direction: column; justify-content: center; }
+        .title-slide h1 { font-size: 3em; margin-bottom: 10px; color: var(--primary); }
+        .title-slide p { color: #aaa; font-size: 1em; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section class="title-slide">
+                <div style="font-size: 4em; color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h1>AX LEADER PROGRAM</h1>
+                <h3 style="color: #fff; font-weight: 300;">기울어진 운동장을 뒤집는 힘</h3>
+                <p style="margin-top: 30px; font-size: 0.8em; border-top: 1px solid #444; padding-top: 20px; display: inline-block;">
+                    AI Technology × Social Impact × Knowledge Production
+                </p>
+                <div style="margin-top: 40px; font-size: 0.7em; color: var(--primary); border: 1px solid var(--primary); padding: 8px 20px; border-radius: 20px; display: inline-block;">
+                    Scroll Down <i class="fas fa-arrow-down"></i>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="main-title"><i class="fas fa-balance-scale"></i> 1. 오프닝: 왜 지금, 누구를 위해?</h2>
+                
+                <div class="grid-2">
+                    <div class="card" style="border-color: var(--secondary);">
+                        <div class="card-icon" style="color: var(--secondary); background: rgba(41, 121, 255, 0.1);"><i class="fas fa-flask"></i></div>
+                        <h4>AI Science (연구실)</h4>
+                        <p>이론, 모델 개발, 소수의 엘리트</p>
+                        <p style="opacity: 0.5;">▼</p>
+                        <p style="color: #aaa;">"우리는 과학자를 기르는 것이 아닙니다."</p>
+                    </div>
+                    <div class="card" style="border-color: var(--primary);">
+                        <div class="card-icon"><i class="fas fa-hammer"></i></div>
+                        <h4>AX Reality (현실)</h4>
+                        <p><strong>일과 삶의 응용</strong>, 문제 해결, 현실 기술</p>
+                        <p style="opacity: 0.5;">▼</p>
+                        <p style="color: #fff; font-weight: bold;">"현실의 문제를 해결하는 AX Leader를 육성합니다."</p>
+                    </div>
+                </div>
+
+                <div class="alert-box">
+                    <h4 style="color: var(--social); margin: 0 0 10px 0;"><i class="fas fa-heart"></i> 사회적 책임: 속도의 불평등 해소</h4>
+                    <p style="font-size: 0.8em; margin: 0;">
+                        AI 기술 확산 속도는 빠르지만, 기회는 불평등합니다. 가장 늦게 기회가 닿는 <strong>지방·저소득층 청년</strong>에게 가장 강력한 무기(AX)를 먼저 쥐여주어, 사회 진출의 '기울어진 운동장'을 바로잡고자 합니다.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="main-title"><i class="fas fa-pen-nib"></i> 2. 핵심 방법론: 지식의 생산자</h2>
+                <p style="margin-bottom: 20px; font-size: 0.9em;">"강의를 듣고(Input), 시험 치는(Output) 낡은 방식은 거부합니다."</p>
+
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-num">01</div>
+                        <i class="fas fa-ban" style="font-size: 1.5em; color: var(--social); margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 0.9em;">소비 금지</h4>
+                        <p style="font-size: 0.65em;">교재/정답 제공 없음.<br>지식 판매 거부.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-num">02</div>
+                        <i class="fas fa-book-writer" style="font-size: 1.5em; color: var(--primary); margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 0.9em;">자기 교재 집필</h4>
+                        <p style="font-size: 0.65em;">나만의 책(Textbook) 제작.<br>재구성만이 진짜 학습.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-num">03</div>
+                        <i class="fas fa-robot" style="font-size: 1.5em; color: var(--accent); margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 0.9em;">AI 검증 (RAG)</h4>
+                        <p style="font-size: 0.65em;">내 책을 AI에 학습시켜<br>논리와 구조 검증.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4><i class="fas fa-vial"></i> 역발상 평가: 100문항 생성</h4>
+                        <p>학생이 직접 100개의 시험 문제를 출제합니다. 문제를 낼 수 있다는 것은 구조를 완전히 이해했다는 증거입니다.</p>
+                    </div>
+                    <div class="card">
+                        <h4><i class="fas fa-copy"></i> 모방과 창조</h4>
+                        <p>타인 자료 참고 허용(모방). 단, 그대로 베끼면 무의미하며 '재구성'과 '맥락화'를 통해 내 것으로 만들어야 합니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="main-title"><i class="fas fa-stairs"></i> 3. 육성 구조: 책임의 사다리</h2>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 8px; border-left: 4px solid #fff; display: flex; align-items: center;">
+                        <div style="width: 100px; font-weight: bold;">수료</div>
+                        <div style="flex: 1; font-size: 0.7em;">세계관 이해 및 AX 환경 적응 (부적합자 조기 이탈)</div>
+                    </div>
+                    <div style="background: rgba(205, 127, 50, 0.1); padding: 10px 20px; border-radius: 8px; border-left: 4px solid #cd7f32; display: flex; align-items: center;">
+                        <div style="width: 100px; font-weight: bold; color: #cd7f32;">브론즈</div>
+                        <div style="flex: 1;">
+                            <span style="font-size: 0.9em; font-weight: bold; display: block;">"사람 구실" (생존선)</span>
+                            <span style="font-size: 0.7em; color: #aaa;">CS 기초(3학년 수준) + AI 활용 능력 확보. 어디서든 1인분 가능.</span>
+                        </div>
+                    </div>
+                    <div style="background: rgba(224, 224, 224, 0.1); padding: 10px 20px; border-radius: 8px; border-left: 4px solid #e0e0e0; display: flex; align-items: center;">
+                        <div style="width: 100px; font-weight: bold; color: #e0e0e0;">실버</div>
+                        <div style="flex: 1;">
+                            <span style="font-size: 0.9em; font-weight: bold; display: block;">"전문가" (설계자)</span>
+                            <span style="font-size: 0.7em; color: #aaa;">자기주도 문제 정의. 자기 교재 완성. 영어 발표/자료 활용.</span>
+                        </div>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.1); padding: 10px 20px; border-radius: 8px; border-left: 4px solid #ffd700; display: flex; align-items: center;">
+                        <div style="width: 100px; font-weight: bold; color: #ffd700;">골드/블랙</div>
+                        <div style="flex: 1;">
+                            <span style="font-size: 0.9em; font-weight: bold; display: block;">"공동 창작자" (기여자)</span>
+                            <span style="font-size: 0.7em; color: #aaa;">시스템 개선 기여, 후배 양성. 소비자가 아닌 파트너로 인정.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="main-title"><i class="fas fa-shield-alt"></i> 4. 핵심 무기: 불리함을 뒤집다</h2>
+                <p style="margin-bottom: 20px; font-size: 0.9em;">"사회에 나갈 때, 빈손으로 보내지 않습니다. 강력한 무기를 들려 보냅니다."</p>
+
+                <div class="grid-3">
+                    <div class="card" style="border-top: 4px solid var(--accent);">
+                        <div class="card-icon" style="color: var(--accent); background: rgba(255, 235, 59, 0.1);"><i class="fas fa-key"></i></div>
+                        <h4>배타적 사용권</h4>
+                        <p>PSSLAB이 보유한 <strong>AX 방법론 및 기술 자산</strong>을 실무에서 사용할 권한을 부여합니다.</p>
+                        <p style="font-size: 0.65em; color: var(--accent);">→ 스펙을 뛰어넘는 실무 무기</p>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--primary);">
+                        <div class="card-icon"><i class="fas fa-brain"></i></div>
+                        <h4>개인 RAG 시스템</h4>
+                        <p>훈련 기간 동안 축적한 '내 지식(자기 교재)'이 담긴 <strong>AI 검색/생성 시스템</strong>을 개인 자산으로 가져갑니다.</p>
+                        <p style="font-size: 0.65em; color: var(--primary);">→ 대체 불가능한 지식 베이스</p>
+                    </div>
+                    <div class="card" style="border-top: 4px solid var(--secondary);">
+                        <div class="card-icon" style="color: var(--secondary); background: rgba(41, 121, 255, 0.1);"><i class="fas fa-network-wired"></i></div>
+                        <h4>재현(Reproduction) 권한</h4>
+                        <p>이 학습 구조 자체를 다른 조직이나 지역에서 <strong>재현할 수 있는 노하우</strong>를 전수합니다.</p>
+                        <p style="font-size: 0.65em; color: var(--secondary);">→ 단순 취업자를 넘어선 리더</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="main-title"><i class="fas fa-cogs"></i> 5. 운영: 비용과 효율의 혁신</h2>
+                
+                <div class="grid-1-2">
+                    <div class="card" style="display: flex; flex-direction: column; justify-content: center;">
+                        <div style="font-size: 3em; color: var(--social); text-align: center; margin-bottom: 10px;">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h4 style="text-align: center;">비용 통제</h4>
+                        <p style="text-align: center;">"비용은 돈이 아니라 구조 문제"</p>
+                    </div>
+                    <div style="display: grid; gap: 10px;">
+                        <div style="background: #222; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-server" style="color: var(--primary); font-size: 1.5em;"></i>
+                            <div>
+                                <strong style="color: #fff; display: block; font-size: 0.9em;">중앙 게이트웨이 (Central Gateway)</strong>
+                                <span style="font-size: 0.7em; color: #aaa;">개인 결제 금지. 중앙에서 모델/사용량 통제 및 로그 분석.</span>
+                            </div>
+                        </div>
+                        <div style="background: #222; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px;">
+                            <i class="fas fa-robot" style="color: var(--secondary); font-size: 1.5em;"></i>
+                            <div>
+                                <strong style="color: #fff; display: block; font-size: 0.9em;">AI 기반 운영 (AI Ops)</strong>
+                                <span style="font-size: 0.7em; color: #aaa;">과제 생성, 1차 평가, 피드백을 AI가 수행하여 운영 인력 최소화.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h4 style="font-size: 0.9em;"><i class="fas fa-exclamation-circle"></i> 예상 이슈 및 대응</h4>
+                    <ul style="font-size: 0.7em; margin-left: 20px; color: #ccc;">
+                        <li><strong>초기 이탈률:</strong> 능동적 학습(자기 교재)의 어려움으로 초기 이탈 발생 가능 → '수료' 단계에서 자연스러운 필터링으로 유도.</li>
+                        <li><strong>표절 이슈:</strong> AI 생성물의 단순 복사 → '재구성'과 '설명 책임(오프라인 평가)'으로 검증.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="title-slide">
+                <div class="quote-box" style="border: none; background: none; font-size: 1.1em; max-width: 900px; margin: 0 auto;">
+                    <i class="fas fa-quote-left" style="font-size: 1.5em; color: var(--primary); opacity: 0.3; margin-bottom: 20px;"></i>
+                    
+                    <p style="line-height: 1.8; color: #ccc; margin-bottom: 30px;">
+                        AI 모델을 만드는 데는 <span style="color: #fff;">천재 1명</span>이면 충분합니다.<br>
+                        하지만 AX를 실현하는 데는 <span style="color: var(--primary); font-weight: bold;">수백, 수천 명의 전문가</span>가 필요합니다.<br>
+                        우리는 사회가 필요로 하는 그 수많은 AX Leader를 배출하고자 합니다.
+                    </p>
+
+                    <div style="border-top: 1px solid rgba(255,255,255,0.1); width: 50px; margin: 0 auto 30px auto;"></div>
+
+                    <p style="font-size: 1.3em; font-weight: 700; color: #fff; line-height: 1.4;">
+                        더불어 그 과정에서 <span style="color: var(--social); border-bottom: 2px solid var(--social);">계층 이동의 사다리</span>를<br>
+                        '기술'과 '구조'로 복원하는 실험입니다.
+                    </p>
+                    
+                    <div style="margin-top: 50px;">
+                        <span style="font-size: 0.6em; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px;">
+                            PSSLAB AX Leader Program
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: false,
+            navigationMode: 'linear',
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            width: '100%',
+            height: '100%',
+            margin: 0,
+            minScale: 1,
+            maxScale: 1
+        });
+    </script>
+</body>
+</html>
